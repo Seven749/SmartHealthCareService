@@ -3,6 +3,10 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.sevenrecy.smarthealthcareservice.dao.UserDao">
+
+    <select id="selectSysUserById" resultType="User" parameterType="int">
+        SELECT * FROM user WHERE user_id=#{user_id}
+    </select>
     
     <select id="selectSysUserByTel" resultType="User" parameterType="String">
         SELECT * FROM user WHERE tel=#{tel}

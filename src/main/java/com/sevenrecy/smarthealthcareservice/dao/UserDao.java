@@ -5,6 +5,13 @@ import org.apache.ibatis.annotations.Param;
 
 public interface UserDao {
     /**
+     * 调用此接口可通过id获取用户信息
+     * @param user_id 用户id
+     * @return
+     */
+    User selectSysUserById(int user_id);
+
+    /**
      * 调用此接口可通过手机号获取用户信息
      * @param tel 手机号
      * @return 用户信息

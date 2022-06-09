@@ -15,4 +15,9 @@ public class DoctorServiceImpl implements DoctorService {
     public Doctor selectDoctor(String doc_id, String pwd) {
         return doctorDao.selectDoctor(doc_id, pwd);
     }
+
+    @Override
+    public Doctor selectDoctorById(String doc_id) {
+        return doctorDao.selectDoctorById(doc_id);
+    }
 }

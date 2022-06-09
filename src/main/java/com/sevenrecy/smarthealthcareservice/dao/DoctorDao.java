@@ -2,6 +2,7 @@ package com.sevenrecy.smarthealthcareservice.dao;
 
 import com.sevenrecy.smarthealthcareservice.entity.Doctor;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.web.bind.annotation.RequestParam;
 
 public interface DoctorDao {
     /**
@@ -11,4 +12,11 @@ public interface DoctorDao {
      * @return
      */
     Doctor selectDoctor(@Param("doc_id") String doc_id, @Param("pwd") String pwd);
+
+    /**
+     * 可以通过医生的id获取医生的基本信息
+     * @param doc_id
+     * @return
+     */
+    Doctor selectDoctorById(@RequestParam("doc_id") String doc_id);
 }

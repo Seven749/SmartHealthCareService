@@ -55,7 +55,12 @@ public enum ResultCodeEnum {
     LOGIN_ACL(false, 28005, "没有权限"),
     SMS_SEND_ERROR(false, 28006, "短信发送失败"),
     SMS_SEND_ERROR_BUSINESS_LIMIT_CONTROL(false, 28007, "短信发送过于频繁"),
-    DATABASE_ERROR(false, 28101, "数据库异常");
+    DATABASE_ERROR(false, 28101, "数据库异常"),
+
+    DEPT_NULL_ERROR(false, 28201, "科室不存在"),
+    DOCTOR_NULL_ERROR(false,28202, "医生不存在"),
+    REGISTRATION_TIME_ERROR(false, 28203, "时间已占用"),
+    REGISTRATION_NULL_ERROR(false, 28004, "未查询到记录");
 
 
 

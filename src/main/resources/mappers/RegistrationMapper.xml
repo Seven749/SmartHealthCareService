@@ -3,5 +3,16 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.sevenrecy.smarthealthcareservice.dao.RegistrationDao">
+    <select id="selectRegistrationList" parameterType="int" resultType="Registration">
+        SELECT * FROM registration WHERE user_id=#{user_id} ORDER BY date, time DESC LIMIT 5
+    </select>
 
+    <select id="selectRegistration" parameterType="String" resultType="Registration">
+        SELECT * FROM registration WHERE doc_id=#{doc_id} AND date=#{date} AND time=#{time}
+    </select>
+
+    <insert id="insertRegistration" parameterType="Registration">
+        INSERT INTO registration(record_id, user_id, user_name, doc_id, doc_name, dept_id, dept_name, num, price, date, time, create_time)
+        VALUES (#{record_id}, #{user_id}, #{user_name}, #{doc_id}, #{doc_name}, #{dept_id}, #{dept_name}, #{num}, #{price}, #{date}, #{time}, #{create_time})
+    </insert>
 </mapper>

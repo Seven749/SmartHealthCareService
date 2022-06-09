@@ -12,6 +12,11 @@ public class UserServiceImpl implements UserService {
     private UserDao userDao;
 
     @Override
+    public User selectSysUserById(int user_id) {
+        return userDao.selectSysUserById(user_id);
+    }
+
+    @Override
     public User selectSysUserByTel(String tel) {
         return userDao.selectSysUserByTel(tel);
     }
