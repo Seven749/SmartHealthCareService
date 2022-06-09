@@ -130,25 +130,6 @@ public class RegistrationController {
         }
         // 有预约记录
         return Result.ok().data("registrationList", registrationList);
-//        List<Registration> list = new ArrayList<>();
-//        Registration registration = new Registration();
-//        registration.setRecord_id("reg_3001");
-//        registration.setUser_id(20123131);
-//        registration.setUser_name("张三");
-//        registration.setDoc_id("testId");
-//        registration.setDoc_name("李四");
-//        registration.setNum(301);
-//        registration.setPrice(8.0);
-//        SimpleDateFormat fmt1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-//        fmt1.setTimeZone(TimeZone.getTimeZone("Asia/Shanghai"));
-//        registration.setTime("2022-06-09 14:30");
-//        registration.setCreate_time(fmt1.format(new Date()));
-//        list.add(registration);
-//        list.add(registration);
-//        list.add(registration);
-//        list.add(registration);
-//        list.add(registration);
-//        return Result.ok().data("list", list);
     }
 
 }
