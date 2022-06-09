@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sevenrecy.smarthealthcareservice.dao.UserDao">
+    
+    <select id="selectSysUserByTel" resultType="User" parameterType="String">
+        SELECT * FROM user WHERE tel=#{tel}
+    </select>
+
+    <select id="selectSysUserByIDCard" resultType="User" parameterType="String">
+        SELECT * FROM user WHERE IDCard=#{IDCard}
+    </select>
+
+    <insert id="insertSysUser" parameterType="User">
+        INSERT INTO user(name, pwd, IDCard, sex, birthday, tel, count, create_time, balance)
+        VALUES(#{name}, #{pwd}, #{IDCard}, #{sex}, #{birthday}, #{tel}, #{count}, #{create_time}, #{balance})
+    </insert>
+
+    <select id="selectSysUserByIDCardAndTel" resultType="User">
+        SELECT * FROM user WHERE IDCard=#{IDCard} AND tel=#{tel}
+    </select>
+    
+    <update id="updateSysUserPwd">
+        UPDATE user SET pwd=#{pwd}, tel=#{tel} WHERE user_id=#{user_id}
+    </update>
+</mapper>
