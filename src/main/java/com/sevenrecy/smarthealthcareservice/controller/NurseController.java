@@ -1,6 +1,5 @@
 package com.sevenrecy.smarthealthcareservice.controller;
 
-import com.sevenrecy.smarthealthcareservice.dao.NurseDao;
 import com.sevenrecy.smarthealthcareservice.entity.Nurse;
 import com.sevenrecy.smarthealthcareservice.json.Result;
 import com.sevenrecy.smarthealthcareservice.service.NurseService;
@@ -8,10 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.TimeZone;
 
 import static com.sevenrecy.smarthealthcareservice.json.ResultCodeEnum.*;
 
