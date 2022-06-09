@@ -3,11 +3,11 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.sevenrecy.smarthealthcareservice.dao.DeptDao">
-    <select id="getDeptList" resultType="Dept">
+    <select id="selectDeptList" resultType="Dept">
         SELECT * FROM dept
     </select>
     
-    <select id="getDept" parameterType="int" resultType="Dept">
+    <select id="selectDept" parameterType="int" resultType="Dept">
         SELECT * FROM dept WHERE dept_id=#{dept_id}
     </select>
 </mapper>

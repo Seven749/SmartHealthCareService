@@ -6,4 +6,8 @@
     <select id="selectDoctor" parameterType="String" resultType="Doctor">
         SELECT * FROM doctor WHERE doc_id=#{doc_id} AND pwd=#{pwd}
     </select>
+
+    <select id="selectDoctorById" parameterType="String" resultType="Doctor">
+        SELECT * FROM doctor WHERE doc_id=#{doc_id}
+    </select>
 </mapper>

@@ -37,7 +37,7 @@ public class RegistrationController {
 
     /**
      * 挂号时通过此接口进行挂号，并返回挂号单信息
-     * @param name 用户姓名
+     * @param user_name 用户姓名
      * @param IDCard 用户身份证
      * @param dept_id 挂号科室id
      * @param doc_id 挂号医生id
@@ -45,7 +45,7 @@ public class RegistrationController {
      * @return
      */
     @RequestMapping("/create_registration")
-    public Result createRegistration(@RequestParam("name") String name,
+    public Result createRegistration(@RequestParam("user_name") String user_name,
                                      @RequestParam("IDCard") String IDCard,
                                      @RequestParam("dept_id") int dept_id,
                                      @RequestParam("doc_id") String doc_id,
@@ -55,7 +55,7 @@ public class RegistrationController {
         if (user==null) {
             // 无用户，创建用户
             user = new User();
-            user.setName(name);
+            user.setName(user_name);
             user.setIDCard(IDCard);
             String birth = ""+IDCard.substring(6,10)+"-"+IDCard.substring(10,12)+"-"+IDCard.substring(12,14);
             SimpleDateFormat fmt1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -114,7 +114,12 @@ public class RegistrationController {
         SimpleDateFormat fmt1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         fmt1.setTimeZone(TimeZone.getTimeZone("Asia/Shanghai"));
         registration.setCreate_time(fmt1.format(new Date()));
-        return Result.ok().data("registration", registration);
+        int i = registrationService.insertRegistration(registration);
+        if (i>0) {
+            registration = registrationService.selectRegistration(doc_id, date, time);
+            return Result.ok().data("registration", registration);
+        }
+        return Result.setResult(DATABASE_ERROR);
     }
 
     /**
