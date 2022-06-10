@@ -122,6 +122,6 @@ public class UserController {
             }
             return Result.setResult(DATABASE_ERROR);
         }
-        return Result.setResult(LOGIN_USER_ERROR);
+        return Result.setResult(USER_NULL_ERROR);
     }
 }

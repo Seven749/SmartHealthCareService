@@ -46,7 +46,7 @@ public enum ResultCodeEnum {
     LOGIN_PHONE_ERROR(false, 28009, "手机号码不正确"),
     LOGIN_ACCOUNT_ERROR(false, 28001, "账号不正确"),
     LOGIN_PASSWORD_ERROR(false, 28008, "密码不正确"),
-    LOGIN_USER_ERROR(false, 28012, "账号不存在"),
+    USER_NULL_ERROR(false, 28012, "用户不存在"),
     LOGIN_NULL_ERROR(false,28013, "账户或密码错误"),
     LOGIN_DISABLED_ERROR(false, 28002, "该用户已被禁用"),
     REGISTER_MOBILE_ERROR(false, 28003, "手机号已被注册"),
@@ -60,7 +60,11 @@ public enum ResultCodeEnum {
     DEPT_NULL_ERROR(false, 28201, "科室不存在"),
     DOCTOR_NULL_ERROR(false,28202, "医生不存在"),
     REGISTRATION_TIME_ERROR(false, 28203, "时间已占用"),
-    REGISTRATION_NULL_ERROR(false, 28004, "未查询到记录");
+    REGISTRATION_NULL_ERROR(false, 28204, "未查询到记录"),
+    DRUG_NULL_ERROR(false, 28205, "药品不存在"),
+    DRUG_EXIT_ERROR(false, 28205, "药品已存在"),
+    PRESCRIPTION_NULL_ERROR(false, 28206, "处方不存在"),
+    HISTORIES_NULL_ERROR(false ,28207, "病历不存在");
 
 
 

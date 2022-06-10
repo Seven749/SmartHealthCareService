@@ -3,5 +3,16 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.sevenrecy.smarthealthcareservice.dao.DrugDao">
+    <insert id="insertDrug" parameterType="Drug">
+        INSERT INTO drug(drug_id, name, unit, capacity, price)
+        VALUES (#{drug_id}, #{name}, #{unit}, #{capacity}, #{price})
+    </insert>
 
+    <select id="selectDrugById" parameterType="String">
+        SELECT * FROM drug WHERE drug_id=#{drug_id}
+    </select>
+
+    <select id="selectDrugList" resultType="Drug">
+        SELECT * FROM drug
+    </select>
 </mapper>

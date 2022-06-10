@@ -9,7 +9,7 @@ public class Registration {
     private String user_name;
     private String doc_id;
     private String doc_name;
-    private String dept_id;
+    private int dept_id;
     private String dept_name;
     private int num;
     private double price;

@@ -10,6 +10,7 @@ public class Histories {
     private String user_name;
     private String doc_id;
     private String doc_name;
+    private int dept_id;
     private String dept_name;
     private String allergies;   // 过敏史
     private String present; // 现状史
@@ -20,6 +21,7 @@ public class Histories {
 //    private String prescription_id; // 处方编号
 //    private String check_item_id;   // 检查单编号
     private String advice;  // 建议
+    private String create_time;
 
     private List<Prescription> prescriptionList;
     private List<CheckItem> checkItemList;

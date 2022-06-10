@@ -5,12 +5,6 @@ import lombok.Data;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * @className: Result
- * @description: 全局`统一返回结果
- * @date: 2020/11/16
- * @author: cakin
- */
 @Data
 public class Result {
 
@@ -31,8 +25,6 @@ public class Result {
     /**
      * 功能描述：成功返回
      *
-     * @author cakin
-     * @date 2020/11/16
      * @return Result 成功返回结果
      * @description:
      */
@@ -47,8 +39,6 @@ public class Result {
     /**
      * 功能描述：失败返回
      *
-     * @author cakin
-     * @date 2020/11/16
      * @return Result 失败返回结果
      */
     public static Result error(){
@@ -62,8 +52,6 @@ public class Result {
     /**
      * 功能描述：设置返回结果
      *
-     * @author cakin
-     * @date 2020/11/16
      * @param resultCodeEnum 结果枚举
      * @return Result 返回给前端的结果
      */
@@ -78,8 +66,6 @@ public class Result {
     /**
      * 功能描述：设置success状态
      *
-     * @author cakin
-     * @date 2020/11/16
      * @param success 值为true或false
      * @return Result 返回给前端的数据
      */
@@ -91,8 +77,6 @@ public class Result {
     /**
      * 功能描述：设置message内容
      *
-     * @author cakin
-     * @date 2020/11/16
      * @param message 消息内容
      * @return Result 返回给前端的数据
      */
@@ -104,8 +88,6 @@ public class Result {
     /**
      * 功能描述：设置code内容
      *
-     * @author cakin
-     * @date 2020/11/16
      * @param code 返回码
      * @return Result 返回给前端的数据
      */
@@ -117,8 +99,6 @@ public class Result {
     /**
      * 功能描述：单值设置数据
      *
-     * @author cakin
-     * @date 2020/11/16
      * @param key 键
      * @param value 值
      * @return Result 返回给前端的数据
@@ -131,8 +111,6 @@ public class Result {
     /**
      * 功能描述：多值设置数据
      *
-     * @author cakin
-     * @date 2020/11/16
      * @param map 集合
      * @return Result 返回给前端的数据
      */

@@ -123,8 +123,8 @@ public class RegistrationController {
     }
 
     /**
-     *
-     * @param user_id
+     * 获取用户的预约挂号记录
+     * @param user_id 用户id
      * @return
      */
     @RequestMapping("/get_registration_list")
