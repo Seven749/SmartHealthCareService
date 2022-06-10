@@ -8,12 +8,16 @@
         VALUES (#{prescription_id}, #{histories_id}, #{drug_id}, #{drug_name}, #{drug_count}, #{usage})
     </insert>
 
-    <select id="selectPrescription" parameterType="String" resultType="Prescription">
+    <select id="selectPrescriptionById" parameterType="String" resultType="Prescription">
         SELECT * FROM prescription WHERE prescription_id=#{prescription_id}
     </select>
 
     <select id="selectPrescriptionList" parameterType="String" resultType="Prescription">
         SELECT * FROM prescription WHERE histories_id=#{histories_id}
+    </select>
+
+    <select id="selectPrescription" parameterType="String" resultType="Prescription">
+        SELECT * FROM prescription WHERE histories_id=#{histories_id} AND drug_id=#{drug_id}
     </select>
 
 

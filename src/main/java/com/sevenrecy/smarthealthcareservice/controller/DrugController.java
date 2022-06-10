@@ -35,7 +35,7 @@ public class DrugController {
                              @RequestParam("capacity") String capacity,
                              @RequestParam("price") double price) {
         Drug drug = drugService.selectDrugById(drug_id);
-        if (drug==null) {
+        if (drug!=null) {
             return Result.setResult(DRUG_EXIT_ERROR).data("drug", drug);
         }
         drug = new Drug();

@@ -124,4 +124,9 @@ public class UserController {
         }
         return Result.setResult(USER_NULL_ERROR);
     }
+
+    // 身份证检测
+
+
+    // 手机号检测
 }

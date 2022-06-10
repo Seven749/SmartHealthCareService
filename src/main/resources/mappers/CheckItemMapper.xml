@@ -3,5 +3,20 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.sevenrecy.smarthealthcareservice.dao.CheckItemDao">
+    <insert id="insertCheckItem" parameterType="CheckItem">
+        INSERT INTO check_item(check_item_id, histories_id, item_id, item_name, item_count, create_time)
+        VALUES (#{check_item_id}, #{histories_id}, #{item_id}, #{item_name}, #{item_count}, #{create_time})
+    </insert>
+    
+    <select id="selectCheckItemById" parameterType="Sting" resultType="CheckItem">
+        SELECT * FROM check_item WHERE check_item_id=#{check_item_id};
+    </select>
 
+    <select id="selectCheckItemList" resultType="CheckItem">
+        SELECT * FROM check_item
+    </select>
+
+    <select id="selectCheckItem" parameterType="String" resultType="CheckItem">
+        SELECT * FROM chek_item WHERE histories_id=#{histories_id} AND item_id=#[item_id]
+    </select>
 </mapper>

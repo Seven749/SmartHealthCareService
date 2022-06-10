@@ -1,6 +1,7 @@
 package com.sevenrecy.smarthealthcareservice.dao;
 
 import com.sevenrecy.smarthealthcareservice.entity.Prescription;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -18,7 +19,7 @@ public interface PrescriptionDao {
      * @param prescription_id 处方id
      * @return
      */
-    Prescription selectPrescription(String prescription_id);
+    Prescription selectPrescriptionById(String prescription_id);
 
     /**
      * 获取对应病历的处方列表
@@ -26,7 +27,12 @@ public interface PrescriptionDao {
      * @return
      */
     List<Prescription> selectPrescriptionList(String histories_id);
-    
-    
 
+    /**
+     * 查询是否已有处方
+     * @param histories_id 病历id
+     * @param drug_id 药品id
+     * @return
+     */
+    Prescription selectPrescription(@Param("histories_id") String histories_id, @Param("drug_id") String drug_id);
 }

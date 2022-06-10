@@ -64,7 +64,12 @@ public enum ResultCodeEnum {
     DRUG_NULL_ERROR(false, 28205, "药品不存在"),
     DRUG_EXIT_ERROR(false, 28205, "药品已存在"),
     PRESCRIPTION_NULL_ERROR(false, 28206, "处方不存在"),
-    HISTORIES_NULL_ERROR(false ,28207, "病历不存在");
+    HISTORIES_NULL_ERROR(false ,28207, "病历不存在"),
+    PRESCRIPTION_EXIT_ERROR(false, 28208, "处方已存在"),
+    ITEM_EXIT_ERROR(false, 28209, "项目已存在"),
+    ITEM_NULL_ERROR(false, 28210, "项目不存在"),
+    CHECK_EXIT_ERROR(false, 28211, "检查项目已存在"),
+    CHECK_NULL_ERROR(false, 28212, "检查项目不存在"),;
 
 
 

@@ -3,5 +3,17 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.sevenrecy.smarthealthcareservice.dao.ItemDao">
+    <insert id="insertItem" parameterType="Item">
+        INSERT INTO item(item_id, name, price, dept_id)
+        VALUES (#{item_id}, #{name}, #{price}, #{dept_id})
+    </insert>
+
+    <select id="selectItemById" parameterType="String" resultType="Item">
+        SELECT * FROM item WHERE item_id=#{item_id}
+    </select>
+
+    <select id="selectItemList" resultType="Item">
+        SELECT * FROM item
+    </select>
 
 </mapper>

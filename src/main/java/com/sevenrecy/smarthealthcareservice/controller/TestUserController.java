@@ -370,7 +370,7 @@ public class TestUserController {
         drugBill.setPrice(25);
         drugBill.setTotal(5*25);
         drugBill.setCount(1);
-        drugBill.setPay(false);
+        drugBill.setIsPay("No");
         drugBillList.add(drugBill);
         drugBillList.add(drugBill);
 

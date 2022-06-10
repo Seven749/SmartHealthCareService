@@ -8,7 +8,7 @@
         VALUES (#{drug_id}, #{name}, #{unit}, #{capacity}, #{price})
     </insert>
 
-    <select id="selectDrugById" parameterType="String">
+    <select id="selectDrugById" parameterType="String" resultType="Drug">
         SELECT * FROM drug WHERE drug_id=#{drug_id}
     </select>
 

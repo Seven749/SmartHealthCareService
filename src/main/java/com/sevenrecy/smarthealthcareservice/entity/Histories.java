@@ -22,7 +22,9 @@ public class Histories {
 //    private String check_item_id;   // 检查单编号
     private String advice;  // 建议
     private String create_time;
+    private int prescription_count=0;
+    private int check_item_count=0;
 
-    private List<Prescription> prescriptionList;
-    private List<CheckItem> checkItemList;
+    private List<Prescription> prescriptionList = null;
+    private List<CheckItem> checkItemList = null;
 }

@@ -19,12 +19,17 @@ public class PrescriptionServiceImpl implements PrescriptionService {
     }
 
     @Override
-    public Prescription selectPrescription(String prescription_id) {
-        return prescriptionDao.selectPrescription(prescription_id);
+    public Prescription selectPrescriptionById(String prescription_id) {
+        return prescriptionDao.selectPrescriptionById(prescription_id);
     }
 
     @Override
     public List<Prescription> selectPrescriptionList(String histories_id) {
         return prescriptionDao.selectPrescriptionList(histories_id);
+    }
+
+    @Override
+    public Prescription selectPrescription(String histories_id, String drug_id) {
+        return prescriptionDao.selectPrescription(histories_id, drug_id);
     }
 }
