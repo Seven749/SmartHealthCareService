@@ -8,7 +8,7 @@
         VALUES (#{check_item_id}, #{histories_id}, #{item_id}, #{item_name}, #{item_count}, #{create_time})
     </insert>
     
-    <select id="selectCheckItemById" parameterType="Sting" resultType="CheckItem">
+    <select id="selectCheckItemById" parameterType="String" resultType="CheckItem">
         SELECT * FROM check_item WHERE check_item_id=#{check_item_id};
     </select>
 

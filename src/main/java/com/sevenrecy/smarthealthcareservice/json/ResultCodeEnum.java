@@ -69,7 +69,8 @@ public enum ResultCodeEnum {
     ITEM_EXIT_ERROR(false, 28209, "项目已存在"),
     ITEM_NULL_ERROR(false, 28210, "项目不存在"),
     CHECK_EXIT_ERROR(false, 28211, "检查项目已存在"),
-    CHECK_NULL_ERROR(false, 28212, "检查项目不存在"),;
+    CHECK_NULL_ERROR(false, 28212, "检查项目不存在"),
+    DRUG_BILL_CREATE_ERROR(false, 28213, "药品账单创建失败");
 
 
 

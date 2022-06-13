@@ -385,7 +385,7 @@ public class TestUserController {
         itemBill.setPrice(200);
         itemBill.setTotal(200*1);
         itemBill.setCount(1);
-        itemBill.setPay(false);
+        itemBill.setIsPay("No");
         itemBillList.add(itemBill);
         itemBillList.add(itemBill);
 

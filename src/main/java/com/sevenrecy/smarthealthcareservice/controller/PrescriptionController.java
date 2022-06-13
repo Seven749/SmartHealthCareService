@@ -1,13 +1,16 @@
 package com.sevenrecy.smarthealthcareservice.controller;
 
 import com.sevenrecy.smarthealthcareservice.entity.Drug;
+import com.sevenrecy.smarthealthcareservice.entity.DrugBill;
 import com.sevenrecy.smarthealthcareservice.entity.Histories;
 import com.sevenrecy.smarthealthcareservice.entity.Prescription;
 import com.sevenrecy.smarthealthcareservice.json.Result;
+import com.sevenrecy.smarthealthcareservice.service.BillService;
 import com.sevenrecy.smarthealthcareservice.service.DrugService;
 import com.sevenrecy.smarthealthcareservice.service.HistoriesService;
 import com.sevenrecy.smarthealthcareservice.service.PrescriptionService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,6 +25,7 @@ import static com.sevenrecy.smarthealthcareservice.json.ResultCodeEnum.*;
 
 @RestController
 @RequestMapping("/api")
+@CrossOrigin(origins = "http://localhost:8080",maxAge = 3600)
 public class PrescriptionController {
     @Autowired
     PrescriptionService prescriptionService;
@@ -29,6 +33,8 @@ public class PrescriptionController {
     HistoriesService historiesService;
     @Autowired
     DrugService drugService;
+    @Autowired
+    BillService billService;
 
     /**
      * 创建一条新的处方
@@ -70,7 +76,30 @@ public class PrescriptionController {
         if (i>0) {
             prescription = prescriptionService.selectPrescriptionById(prescription.getPrescription_id());
             if (prescription!=null) {
-                return Result.ok().data("prescription",prescription);
+                DrugBill drugBill = billService.selectDrugBillByPreId(prescription.getPrescription_id());
+                if (drugBill==null) {
+                    drugBill = new DrugBill();
+                    drugBill.setDrug_id(prescription.getDrug_id());
+                    drugBill.setPrescription_id(prescription.getPrescription_id());
+                    drugBill.setHistories_id(prescription.getHistories_id());
+                    drugBill.setUser_id(histories.getUser_id());
+                    drugBill.setUser_name(histories.getUser_name());
+                    drugBill.setDrug_id(drug.getDrug_id());
+                    drugBill.setDrug_name(drug.getName());
+                    drugBill.setDrug_count(prescription.getDrug_count());
+                    drugBill.setIsPay("No");
+                    int j = billService.createDrugBill(drugBill);
+                    if (j>0) {
+                        drugBill = billService.selectDrugBillByPreId(prescription.getPrescription_id());
+                        if (drugBill!=null) {
+                            return Result.ok().data("prescription",prescription).data("drugBill", drugBill);
+                        } else {
+                            return Result.setResult(DATABASE_ERROR).data("prescription",prescription);
+                        }
+                    }
+                    return Result.setResult(DRUG_BILL_CREATE_ERROR).data("prescription",prescription);
+                }
+                return Result.ok().data("prescription",prescription).data("drugBill", drugBill);
             }
             return Result.setResult(DATABASE_ERROR);
         }

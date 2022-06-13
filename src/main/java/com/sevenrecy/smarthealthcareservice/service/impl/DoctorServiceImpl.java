@@ -6,6 +6,8 @@ import com.sevenrecy.smarthealthcareservice.service.DoctorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class DoctorServiceImpl implements DoctorService {
     @Autowired
@@ -19,5 +21,10 @@ public class DoctorServiceImpl implements DoctorService {
     @Override
     public Doctor selectDoctorById(String doc_id) {
         return doctorDao.selectDoctorById(doc_id);
+    }
+
+    @Override
+    public List<Doctor> selectDoctorByDept(int dept_id) {
+        return doctorDao.selectDoctorByDept(dept_id);
     }
 }
