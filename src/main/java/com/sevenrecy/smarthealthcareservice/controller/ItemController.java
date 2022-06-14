@@ -72,8 +72,8 @@ public class ItemController {
      * @return
      */
     @RequestMapping("/get_item_list")
-    public Result getItemList() {
-        List<Item> itemList = itemService.selectItemList();
+    public Result getItemList(@RequestParam("dept_id") int dept_id) {
+        List<Item> itemList = itemService.selectItemList(dept_id);
         if (itemList!=null&&itemList.size()>0) {
             return Result.ok().data("itemList", itemList);
         }

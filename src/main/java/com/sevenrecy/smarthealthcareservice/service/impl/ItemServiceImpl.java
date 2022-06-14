@@ -24,7 +24,7 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
-    public List<Item> selectItemList() {
-        return itemDao.selectItemList();
+    public List<Item> selectItemList(int dept_id) {
+        return itemDao.selectItemList(dept_id);
     }
 }

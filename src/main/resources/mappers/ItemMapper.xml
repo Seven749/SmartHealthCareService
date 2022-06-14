@@ -13,7 +13,7 @@
     </select>
 
     <select id="selectItemList" resultType="Item">
-        SELECT * FROM item
+        SELECT * FROM item WHERE dept_id=#{dept_id} ORDER BY item_id
     </select>
 
 </mapper>

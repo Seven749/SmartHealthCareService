@@ -24,5 +24,5 @@ public interface ItemService {
      * 获取所有项目的信息
      * @return
      */
-    List<Item> selectItemList();
+    List<Item> selectItemList(int dept_id);
 }

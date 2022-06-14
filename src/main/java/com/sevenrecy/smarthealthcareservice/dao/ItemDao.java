@@ -1,6 +1,7 @@
 package com.sevenrecy.smarthealthcareservice.dao;
 
 import com.sevenrecy.smarthealthcareservice.entity.Item;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -24,5 +25,5 @@ public interface ItemDao {
      * 获取所有项目的信息
      * @return
      */
-    List<Item> selectItemList();
+    List<Item> selectItemList(@Param("dept_id") int dept_id);
 }
