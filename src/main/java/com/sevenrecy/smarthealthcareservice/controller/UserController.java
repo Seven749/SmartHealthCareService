@@ -127,6 +127,15 @@ public class UserController {
         return Result.setResult(USER_NULL_ERROR);
     }
 
+    @RequestMapping("/get_user")
+    public Result getUser(@RequestParam("user_id") int user_id) {
+        User user = userService.selectSysUserById(user_id);
+        if (user!=null) {
+            return Result.ok().data("user", user);
+        }
+        return Result.setResult(USER_NULL_ERROR);
+    }
+
     // 身份证检测
 
 

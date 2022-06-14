@@ -10,4 +10,8 @@
     <select id="selectDoctorById" parameterType="String" resultType="Doctor">
         SELECT * FROM doctor WHERE doc_id=#{doc_id}
     </select>
+
+    <select id="selectDoctorByDept" parameterType="int" resultType="Doctor">
+        SELECT * FROM doctor WHERE dept_id=#{dept_id} ORDER BY doc_id
+    </select>
 </mapper>
