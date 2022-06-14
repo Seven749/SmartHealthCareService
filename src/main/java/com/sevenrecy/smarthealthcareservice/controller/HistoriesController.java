@@ -53,7 +53,7 @@ public class HistoriesController {
      * @param check_item_count 检查单数量
      * @return
      */
-    @RequestMapping("create_histories")
+    @RequestMapping("/create_histories")
     public Result createHistories(@RequestParam("user_id") int user_id,
                                   @RequestParam("doc_id") String doc_id,
                                   @RequestParam("dept_id") int dept_id,
@@ -86,8 +86,9 @@ public class HistoriesController {
         Histories histories = new Histories();
         histories.setUser_id(user.getUser_id());
         histories.setUser_name(user.getName());
+        histories.setCount(user.getCount());
         histories.setDoc_id(doctor.getDoc_id());
-        histories.setDept_name(dept.getName());
+        histories.setDoc_name(doctor.getName());
         histories.setDept_id(dept.getDept_id());
         histories.setDept_name(dept.getName());
         histories.setAllergies(allergies);
@@ -103,7 +104,7 @@ public class HistoriesController {
         fmt1.setTimeZone(TimeZone.getTimeZone("Asia/Shanghai"));
         histories.setCreate_time(fmt1.format(new Date()));
         String time = histories.getCreate_time();
-        histories.setHistories_id("his"+time.substring(2,4)+time.substring(5,7)+time.substring(8,10)+user_id);
+        histories.setHistories_id("his"+time.substring(2,4)+time.substring(5,7)+time.substring(8,10)+time.substring(11,13)+user_id);
         // 先新建病历
         int i = historiesService.insertHistories(histories);
         if (i<=0) {

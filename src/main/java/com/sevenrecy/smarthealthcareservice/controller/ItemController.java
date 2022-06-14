@@ -2,9 +2,7 @@ package com.sevenrecy.smarthealthcareservice.controller;
 
 import com.sevenrecy.smarthealthcareservice.entity.Item;
 import com.sevenrecy.smarthealthcareservice.json.Result;
-import com.sevenrecy.smarthealthcareservice.json.ResultCodeEnum;
 import com.sevenrecy.smarthealthcareservice.service.ItemService;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -37,7 +35,7 @@ public class ItemController {
                              @RequestParam("dept_id") int dept_id) {
         Item item = itemService.selectItemById(item_id);
         if (item!=null) {
-            return Result.setResult(ITEM_EXIT_ERROR).data("item", item);
+            return Result.setResult(ITEM_EXIST_ERROR).data("item", item);
         }
         item = new Item();
         item.setItem_id(item_id);

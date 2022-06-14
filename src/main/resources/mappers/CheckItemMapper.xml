@@ -17,6 +17,6 @@
     </select>
 
     <select id="selectCheckItem" parameterType="String" resultType="CheckItem">
-        SELECT * FROM chek_item WHERE histories_id=#{histories_id} AND item_id=#[item_id]
+        SELECT * FROM check_item WHERE histories_id=#{histories_id} AND item_id=#{item_id}
     </select>
 </mapper>

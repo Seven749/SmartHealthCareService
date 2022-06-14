@@ -8,6 +8,7 @@ public class Histories {
     private String histories_id;
     private int user_id;
     private String user_name;
+    private int count;
     private String doc_id;
     private String doc_name;
     private int dept_id;

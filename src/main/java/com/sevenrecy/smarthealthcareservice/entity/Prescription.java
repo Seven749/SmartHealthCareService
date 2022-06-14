@@ -9,6 +9,6 @@ public class Prescription {
     private String drug_id;
     private String drug_name;
     private int drug_count;
-    private String usage;
+    private String usages;
     private String create_time;
 }

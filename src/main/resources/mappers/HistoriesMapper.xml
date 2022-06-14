@@ -3,5 +3,20 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.sevenrecy.smarthealthcareservice.dao.HistoriesDao">
+    <insert id="insertHistories" parameterType="Histories">
+        INSERT INTO histories(histories_id, user_id, user_name, count, doc_id, doc_name, dept_id, dept_name, allergies, present, past, physical_exam, assistant_exam, diagnosis, advice, create_time, prescription_count, check_item_count)
+        VALUES (#{histories_id}, #{user_id}, #{user_name}, #{count}, #{doc_id}, #{doc_name}, #{dept_id}, #{dept_name}, #{allergies}, #{present}, #{past}, #{physical_exam}, #{assistant_exam}, #{diagnosis}, #{advice}, #{create_time}, #{prescription_count}, #{check_item_count})
+    </insert>
 
+    <select id="selectHistoriesList" parameterType="int" resultType="Histories">
+        SELECT * FROM histories WHERE user_id=#{user_id} ORDER BY create_time DESC LIMIT 5
+    </select>
+
+    <select id="selectHistoriesByUserId" parameterType="int" resultType="Histories">
+        SELECT * FROM histories WHERE user_id=#{user_id} ORDER BY create_time DESC LIMIT 1
+    </select>
+
+    <select id="selectHistoriesById" parameterType="String" resultType="Histories">
+        SELECT * FROM histories WHERE histories_id=#{histories_id}
+    </select>
 </mapper>

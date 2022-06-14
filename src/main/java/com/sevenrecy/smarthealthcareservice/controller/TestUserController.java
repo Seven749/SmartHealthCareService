@@ -232,7 +232,7 @@ public class TestUserController {
         prescription.setDrug_id("drug_001");
         prescription.setDrug_name("阿莫西林");
         prescription.setDrug_count(5);
-        prescription.setUsage("每日口服3次，一次2片");
+        prescription.setUsages("每日口服3次，一次2片");
         prescriptionList.add(prescription);
         prescriptionList.add(prescription);
 
@@ -284,7 +284,7 @@ public class TestUserController {
         prescription.setDrug_id("drug_001");
         prescription.setDrug_name("阿莫西林");
         prescription.setDrug_count(5);
-        prescription.setUsage("每日口服3次，一次2片");
+        prescription.setUsages("每日口服3次，一次2片");
         prescriptionList.add(prescription);
         prescriptionList.add(prescription);
 

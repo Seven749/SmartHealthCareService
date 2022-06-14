@@ -3,7 +3,6 @@ package com.sevenrecy.smarthealthcareservice.controller;
 import com.sevenrecy.smarthealthcareservice.entity.Drug;
 import com.sevenrecy.smarthealthcareservice.json.Result;
 import com.sevenrecy.smarthealthcareservice.service.DrugService;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -38,7 +37,7 @@ public class DrugController {
                              @RequestParam("price") double price) {
         Drug drug = drugService.selectDrugById(drug_id);
         if (drug!=null) {
-            return Result.setResult(DRUG_EXIT_ERROR).data("drug", drug);
+            return Result.setResult(DRUG_EXIST_ERROR).data("drug", drug);
         }
         drug = new Drug();
         drug.setDrug_id(drug_id);
