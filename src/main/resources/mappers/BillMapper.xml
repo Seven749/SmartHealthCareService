@@ -4,21 +4,29 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.sevenrecy.smarthealthcareservice.dao.BillDao">
     <select id="selectItemBillListByCount" parameterType="int" resultType="ItemBill">
-        SELECT * FROM item_bill WHERE user_id=#{user_id} AND count=#{count}
+        SELECT * FROM item_bill WHERE user_id=#{user_id} AND count=#{count} ORDER BY create_time DESC
     </select>
 
     <select id="selectDrugBillListByCount" parameterType="int" resultType="DrugBill">
-        SELECT * FROM drug_bill WHERE user_id=#{user_id} AND count=#{count}
+        SELECT * FROM drug_bill WHERE user_id=#{user_id} AND count=#{count} ORDER BY create_time DESC
+    </select>
+
+    <select id="selectItemBillList" parameterType="int" resultType="ItemBill">
+        SELECT * FROM item_bill WHERE user_id=#{user_id} ORDER BY count,create_time DESC
+    </select>
+
+    <select id="selectDrugBillList" parameterType="int" resultType="DrugBill">
+        SELECT * FROM drug_bill WHERE user_id=#{user_id} ORDER BY count,create_time DESC
     </select>
 
     <insert id="createItemBill" parameterType="ItemBill">
-        INSERT INTO item_bill(item_bill_id, check_item_id, histories_id, user_id, user_name, item_id, item_name, price, item_count, total, count, isPay)
-        VALUES (#{item_bill_id}, #{check_item_id}, #{histories_id}, #{user_id}, #{user_name}, #{item_id}, #{item_name}, #{price}, #{item_count}, #{total}, #{count}, #{isPay})
+        INSERT INTO item_bill(item_bill_id, check_item_id, histories_id, user_id, user_name, item_id, item_name, price, item_count, total, count, isPay, create_time)
+        VALUES (#{item_bill_id}, #{check_item_id}, #{histories_id}, #{user_id}, #{user_name}, #{item_id}, #{item_name}, #{price}, #{item_count}, #{total}, #{count}, #{isPay}, #{create_time})
     </insert>
 
     <insert id="createDrugBill" parameterType="DrugBill">
-        INSERT INTO drug_bill(drug_bill_id, prescription_id, histories_id, user_id, user_name, drug_id, drug_name, price, drug_count, total, count, isPay)
-        VALUES (#{drug_bill_id}, #{prescription_id}, #{histories_id}, #{user_id}, #{user_name}, #{drug_id}, #{drug_name}, #{price}, #{drug_count}, #{total}, #{count}, #{isPay})
+        INSERT INTO drug_bill(drug_bill_id, prescription_id, histories_id, user_id, user_name, drug_id, drug_name, price, drug_count, total, count, isPay, create_time)
+        VALUES (#{drug_bill_id}, #{prescription_id}, #{histories_id}, #{user_id}, #{user_name}, #{drug_id}, #{drug_name}, #{price}, #{drug_count}, #{total}, #{count}, #{isPay}, #{create_time})
     </insert>
 
     <select id="selectItemBillByCheId" parameterType="String" resultType="ItemBill">

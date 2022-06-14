@@ -23,7 +23,19 @@ public interface BillDao {
      */
     List<DrugBill> selectDrugBillListByCount(@Param("user_id") int user_id, @Param("count") int count);
 
+    /**
+     * 获取最近某次就诊的项目账单列表
+     * @param user_id 用户id
+     * @return
+     */
+    List<ItemBill> selectItemBillList(@Param("user_id") int user_id);
 
+    /**
+     * 获取最近某次就诊的药品账单列表
+     * @param user_id 用户id
+     * @return
+     */
+    List<DrugBill> selectDrugBillList(@Param("user_id") int user_id);
     /**
      * 创建项目账单
      * @param itemBill 项目账单对象

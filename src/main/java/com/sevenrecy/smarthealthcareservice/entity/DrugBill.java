@@ -16,4 +16,5 @@ public class DrugBill {
     private double total;
     private int count;
     private String isPay;
+    private String create_time;
 }

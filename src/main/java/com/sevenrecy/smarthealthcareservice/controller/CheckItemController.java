@@ -71,6 +71,7 @@ public class CheckItemController {
                 itemBill.setTotal(itemBill.getPrice()*itemBill.getItem_count());
                 itemBill.setCount(histories.getCount());
                 itemBill.setIsPay("No");
+                itemBill.setCreate_time(checkItem.getCreate_time());
                 int j = billService.createItemBill(itemBill);
                 if (j>0) {
                     itemBill = billService.selectItemBillByCheId(checkItem.getCheck_item_id());
@@ -113,6 +114,7 @@ public class CheckItemController {
                     itemBill.setTotal(itemBill.getPrice()*itemBill.getItem_count());
                     itemBill.setCount(histories.getCount());
                     itemBill.setIsPay("No");
+                    itemBill.setCreate_time(checkItem.getCreate_time());
                     int j = billService.createItemBill(itemBill);
                     if (j>0) {
                         itemBill = billService.selectItemBillByCheId(checkItem.getCheck_item_id());

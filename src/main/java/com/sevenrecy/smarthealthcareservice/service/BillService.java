@@ -39,6 +39,20 @@ public interface BillService {
     int createDrugBill(DrugBill drugBill);
 
     /**
+     * 获取最近某次就诊的项目账单列表
+     * @param user_id 用户id
+     * @return
+     */
+    List<ItemBill> selectItemBillList(@Param("user_id") int user_id);
+
+    /**
+     * 获取最近某次就诊的药品账单列表
+     * @param user_id 用户id
+     * @return
+     */
+    List<DrugBill> selectDrugBillList(@Param("user_id") int user_id);
+
+    /**
      * 通过检查单id查询账单
      * @param check_item_id 检查单id
      * @return

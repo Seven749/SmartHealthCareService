@@ -25,6 +25,16 @@ public class BillServiceImpl implements BillService {
     }
 
     @Override
+    public List<ItemBill> selectItemBillList(int user_id) {
+        return billDao.selectItemBillList(user_id);
+    }
+
+    @Override
+    public List<DrugBill> selectDrugBillList(int user_id) {
+        return billDao.selectDrugBillList(user_id);
+    }
+
+    @Override
     public int createItemBill(ItemBill itemBill) {
         return billDao.createItemBill(itemBill);
     }

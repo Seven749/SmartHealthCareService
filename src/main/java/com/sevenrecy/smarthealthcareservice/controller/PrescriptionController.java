@@ -73,6 +73,7 @@ public class PrescriptionController {
                 drugBill.setTotal(drugBill.getPrice()*drugBill.getDrug_count());
                 drugBill.setCount(histories.getCount());
                 drugBill.setIsPay("No");
+                drugBill.setCreate_time(prescription.getCreate_time());
                 drugBill.setDrug_bill_id("dbi"+prescription.getPrescription_id().substring(3));
                 int j = billService.createDrugBill(drugBill);
                 if (j>0) {
@@ -118,6 +119,7 @@ public class PrescriptionController {
                     drugBill.setTotal(drugBill.getPrice()*drugBill.getDrug_count());
                     drugBill.setCount(histories.getCount());
                     drugBill.setIsPay("No");
+                    drugBill.setCreate_time(prescription.getCreate_time());
                     drugBill.setDrug_bill_id("dbi"+prescription.getPrescription_id().substring(3));
                     int j = billService.createDrugBill(drugBill);
                     if (j>0) {
