@@ -14,7 +14,6 @@ import java.util.Date;
 import java.util.TimeZone;
 
 import static com.sevenrecy.smarthealthcareservice.json.ResultCodeEnum.*;
-
 @RestController
 @RequestMapping("/api")
 @CrossOrigin(origins = "http://localhost:8080",maxAge = 3600)
@@ -31,6 +30,7 @@ public class UserController {
     @RequestMapping("/user_login")
     public Result userLogin(@RequestParam("tel") String tel,
                             @RequestParam("pwd") String pwd) {
+        System.out.println(new Date() + "\t[SmartHealthCareService]\t" +  this.getClass().getName() + ":\t" + new Exception().getStackTrace()[0].getMethodName());
         User user = userService.selectSysUserByTel(tel);
         if (user!=null) {
             if (user.getPwd().equals(pwd)) {
@@ -55,6 +55,7 @@ public class UserController {
                                @RequestParam("pwd") String pwd,
                                @RequestParam("IDCard") String IDCard,
                                @RequestParam("tel") String tel) {
+        System.out.println(new Date() + "\t[SmartHealthCareService]\t" +  this.getClass().getName() + ":\t" + new Exception().getStackTrace()[0].getMethodName());
         User user = new User();
         user.setName(name);
         user.setPwd(pwd);
@@ -114,6 +115,7 @@ public class UserController {
     public Result userFindPwd(@RequestParam("IDCard") String IDCard,
                               @RequestParam("tel") String tel,
                               @RequestParam("pwd") String pwd) {
+        System.out.println(new Date() + "\t[SmartHealthCareService]\t" +  this.getClass().getName() + ":\t" + new Exception().getStackTrace()[0].getMethodName());
         User user = userService.selectSysUserByIDCardAndTel(IDCard, tel);
         if (user!=null) {
             int user_id = user.getUser_id();
@@ -129,6 +131,7 @@ public class UserController {
 
     @RequestMapping("/get_user")
     public Result getUser(@RequestParam("user_id") int user_id) {
+        System.out.println(new Date() + "\t[SmartHealthCareService]\t" +  this.getClass().getName() + ":\t" + new Exception().getStackTrace()[0].getMethodName());
         User user = userService.selectSysUserById(user_id);
         if (user!=null) {
             return Result.ok().data("user", user);

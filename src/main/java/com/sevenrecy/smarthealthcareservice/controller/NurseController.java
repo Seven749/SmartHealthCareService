@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Date;
+
 import static com.sevenrecy.smarthealthcareservice.json.ResultCodeEnum.*;
 
 @RestController
@@ -21,6 +23,7 @@ public class NurseController {
     @RequestMapping("/nur_login")
     public Result nurLogin(@RequestParam("nur_id") String nur_id,
                            @RequestParam("pwd") String pwd) {
+        System.out.println(new Date() + "\t[SmartHealthCareService]\t" +  this.getClass().getName() + ":\t" + new Exception().getStackTrace()[0].getMethodName());
         Nurse nurse = nurseService.selectNurse(nur_id, pwd);
         if (nurse!=null) {
             return Result.ok().data("login_nurse", nurse);

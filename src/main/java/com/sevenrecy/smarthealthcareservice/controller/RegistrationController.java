@@ -53,6 +53,7 @@ public class RegistrationController {
                                      @RequestParam("doc_id") String doc_id,
                                      @RequestParam("date") String date,
                                      @RequestParam("time") String time) {
+        System.out.println(new Date() + "\t[SmartHealthCareService]\t" +  this.getClass().getName() + ":\t" + new Exception().getStackTrace()[0].getMethodName());
         User user = userService.selectSysUserByIDCard(IDCard);
         if (user==null) {
             // 无用户，创建用户
@@ -131,6 +132,7 @@ public class RegistrationController {
      */
     @RequestMapping("/get_registration_list")
     public Result getRegistrations(@RequestParam("user_id") int user_id) {
+        System.out.println(new Date() + "\t[SmartHealthCareService]\t" +  this.getClass().getName() + ":\t" + new Exception().getStackTrace()[0].getMethodName());
         List<Registration> registrationList = registrationService.selectRegistrationList(user_id);
         if (registrationList==null||registrationList.size()==0) {
             return Result.setResult(REGISTRATION_NULL_ERROR);

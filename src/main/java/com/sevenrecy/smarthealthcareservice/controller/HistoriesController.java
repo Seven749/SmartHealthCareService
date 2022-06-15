@@ -66,6 +66,7 @@ public class HistoriesController {
                                   @RequestParam("advice") String advice,
                                   @RequestParam("prescription_count") int prescription_count,
                                   @RequestParam("check_item_count") int check_item_count) {
+        System.out.println(new Date() + "\t[SmartHealthCareService]\t" +  this.getClass().getName() + ":\t" + new Exception().getStackTrace()[0].getMethodName());
         // 编辑病历
             // 查询用户
         User user = userService.selectSysUserById(user_id);
@@ -125,6 +126,7 @@ public class HistoriesController {
      */
     @RequestMapping("/get_histories")
     public Result getHistories(@RequestParam("histories_id") String histories_id) {
+        System.out.println(new Date() + "\t[SmartHealthCareService]\t" +  this.getClass().getName() + ":\t" + new Exception().getStackTrace()[0].getMethodName());
         Histories histories = historiesService.selectHistoriesById(histories_id);
         if (histories==null) {
             return Result.setResult(HISTORIES_NULL_ERROR);
@@ -152,6 +154,7 @@ public class HistoriesController {
 
     @RequestMapping("/get_histories_list")
     public Result getHistoriesList(@RequestParam("user_id") int user_id) {
+        System.out.println(new Date() + "\t[SmartHealthCareService]\t" +  this.getClass().getName() + ":\t" + new Exception().getStackTrace()[0].getMethodName());
         List<Histories> historiesList = historiesService.selectHistoriesList(user_id);
         if (historiesList!=null&&historiesList.size()>0) {
             return Result.ok().data("historiesList", historiesList);

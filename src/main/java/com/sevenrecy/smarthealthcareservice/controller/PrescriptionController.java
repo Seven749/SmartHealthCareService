@@ -48,6 +48,7 @@ public class PrescriptionController {
                                      @RequestParam("drug_id") String drug_id,
                                      @RequestParam("drug_count") int drug_count,
                                      @RequestParam("usages") String usages) {
+        System.out.println(new Date() + "\t[SmartHealthCareService]\t" +  this.getClass().getName() + ":\t" + new Exception().getStackTrace()[0].getMethodName());
         Drug drug = drugService.selectDrugById(drug_id);
         if (drug==null) {
             return Result.setResult(DRUG_NULL_ERROR);
@@ -146,6 +147,7 @@ public class PrescriptionController {
      */
     @RequestMapping("/get_prescription")
     public Result getPrescription(@RequestParam("prescription_id") String prescription_id) {
+        System.out.println(new Date() + "[SmartHealthCareService]" +  this.getClass().getName() + ": " + new Exception().getStackTrace()[0].getMethodName());
         Prescription prescription = prescriptionService.selectPrescriptionById(prescription_id);
         if (prescription!=null) {
             return Result.ok().data("prescription", prescription);
@@ -160,6 +162,7 @@ public class PrescriptionController {
      */
     @RequestMapping("/get_prescription_list")
     public Result getPrescriptionList(@RequestParam("histories_id") String histories_id) {
+        System.out.println(new Date() + "[SmartHealthCareService]" +  this.getClass().getName() + ": " + new Exception().getStackTrace()[0].getMethodName());
         Histories histories = historiesService.selectHistoriesById(histories_id);
         if (histories!=null) {
             List<Prescription> prescriptionList = prescriptionService.selectPrescriptionList(histories_id);

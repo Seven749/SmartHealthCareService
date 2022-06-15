@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -21,6 +22,7 @@ public class BillController {
 
     @RequestMapping("/get_bill_list")
     public Result getBillList(@RequestParam("user_id") int user_id) {
+        System.out.println(new Date() + "\t[SmartHealthCareService]\t" +  this.getClass().getName() + ":\t" + new Exception().getStackTrace()[0].getMethodName());
         List<ItemBill> itemBillList = billService.selectItemBillList(user_id);
         if (itemBillList==null||itemBillList.size()==0) {
             itemBillList = null;
@@ -35,6 +37,7 @@ public class BillController {
     @RequestMapping("/get_bill_list_by_count")
     public Result getBillListByCount(@RequestParam("user_id") int user_id,
                               @RequestParam("count") int count) {
+        System.out.println(new Date() + "\t[SmartHealthCareService]\t" +  this.getClass().getName() + ":\t" + new Exception().getStackTrace()[0].getMethodName());
         List<ItemBill> itemBillList = billService.selectItemBillListByCount(user_id, count);
         if (itemBillList==null||itemBillList.size()==0) {
             itemBillList = null;

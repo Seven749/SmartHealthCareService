@@ -46,6 +46,7 @@ public class CheckItemController {
     public Result creatCheckItem(@RequestParam("histories_id") String histories_id,
                                  @RequestParam("item_id") String item_id,
                                  @RequestParam("item_count") int item_count) {
+        System.out.println(new Date() + "\t[SmartHealthCareService]\t" +  this.getClass().getName() + ":\t" + new Exception().getStackTrace()[0].getMethodName());
         Histories histories = historiesService.selectHistoriesById(histories_id);
         if (histories==null) {
             return Result.setResult(HISTORIES_NULL_ERROR);
@@ -140,6 +141,7 @@ public class CheckItemController {
      */
     @RequestMapping("/get_check_item")
     public Result getCheckItem(@RequestParam("check_item_id") String check_item_id) {
+        System.out.println(new Date() + "\t[SmartHealthCareService]\t" +  this.getClass().getName() + ":\t" + new Exception().getStackTrace()[0].getMethodName());
         CheckItem checkItem = checkItemService.selectCheckItemById(check_item_id);
         if (checkItem!=null) {
             return Result.ok().data("checkItem", checkItem);
@@ -153,6 +155,7 @@ public class CheckItemController {
      */
     @RequestMapping("/get_check_item_list")
     public Result getCheckItemList() {
+        System.out.println(new Date() + "\t[SmartHealthCareService]\t" +  this.getClass().getName() + ":\t" + new Exception().getStackTrace()[0].getMethodName());
         List<CheckItem> checkItemList = checkItemService.selectCheckItemList();
         if (checkItemList!=null&&checkItemList.size()>0) {
             return Result.ok().data("checkItemList", checkItemList);

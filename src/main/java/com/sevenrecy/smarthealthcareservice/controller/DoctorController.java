@@ -32,6 +32,7 @@ public class DoctorController {
     @RequestMapping("/doc_login")
     public Result docLogin(@RequestParam("doc_id") String doc_id,
                            @RequestParam("pwd") String pwd) {
+        System.out.println(new Date() + "\t[SmartHealthCareService]\t" +  this.getClass().getName() + ":\t" + new Exception().getStackTrace()[0].getMethodName());
         Doctor doctor = doctorService.selectDoctor(doc_id, pwd);
         if (doctor!=null) {
             return Result.ok().data("login_doctor", doctor);
@@ -46,6 +47,7 @@ public class DoctorController {
      */
     @RequestMapping("/get_doc")
     public Result getDoctor(@RequestParam("doc_id") String doc_id) {
+        System.out.println(new Date() + "\t[SmartHealthCareService]\t" +  this.getClass().getName() + ":\t" + new Exception().getStackTrace()[0].getMethodName());
         Doctor doctor = doctorService.selectDoctorById(doc_id);
         if (doctor!=null) {
             return Result.ok().data("doctor", doctor);
@@ -60,6 +62,7 @@ public class DoctorController {
      */
     @RequestMapping("get_doc_dept_list")
     public Result getDoctorDeptList(@RequestParam("dept_id") int dept_id) {
+        System.out.println(new Date() + "\t[SmartHealthCareService]\t" +  this.getClass().getName() + ":\t" + new Exception().getStackTrace()[0].getMethodName());
         List<Doctor> doctorList = doctorService.selectDoctorByDept(dept_id);
         if (doctorList!=null&&doctorList.size()>0) {
             return Result.ok().data("doctorList", doctorList);

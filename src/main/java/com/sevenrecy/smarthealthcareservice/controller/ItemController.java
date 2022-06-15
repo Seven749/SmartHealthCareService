@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Date;
 import java.util.List;
 
 import static com.sevenrecy.smarthealthcareservice.json.ResultCodeEnum.*;
@@ -33,6 +34,7 @@ public class ItemController {
                              @RequestParam("name") String name,
                              @RequestParam("price") double price,
                              @RequestParam("dept_id") int dept_id) {
+        System.out.println(new Date() + "\t[SmartHealthCareService]\t" +  this.getClass().getName() + ":\t" + new Exception().getStackTrace()[0].getMethodName());
         Item item = itemService.selectItemById(item_id);
         if (item!=null) {
             return Result.setResult(ITEM_EXIST_ERROR).data("item", item);
@@ -60,6 +62,7 @@ public class ItemController {
      */
     @RequestMapping("get_item")
     public Result getItem(@RequestParam("item_id") String item_id) {
+        System.out.println(new Date() + "\t[SmartHealthCareService]\t" +  this.getClass().getName() + ":\t" + new Exception().getStackTrace()[0].getMethodName());
         Item item = itemService.selectItemById(item_id);
         if (item!=null) {
             return Result.ok().data("item", item);
@@ -73,6 +76,7 @@ public class ItemController {
      */
     @RequestMapping("/get_item_list")
     public Result getItemList(@RequestParam("dept_id") int dept_id) {
+        System.out.println(new Date() + "\t[SmartHealthCareService]\t" +  this.getClass().getName() + ":\t" + new Exception().getStackTrace()[0].getMethodName());
         List<Item> itemList = itemService.selectItemList(dept_id);
         if (itemList!=null&&itemList.size()>0) {
             return Result.ok().data("itemList", itemList);

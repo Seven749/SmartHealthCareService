@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Date;
 import java.util.List;
 
 import static com.sevenrecy.smarthealthcareservice.json.ResultCodeEnum.*;
@@ -35,6 +36,7 @@ public class DrugController {
                              @RequestParam("unit") String unit,
                              @RequestParam("capacity") String capacity,
                              @RequestParam("price") double price) {
+        System.out.println(new Date() + "\t[SmartHealthCareService]\t" +  this.getClass().getName() + ":\t" + new Exception().getStackTrace()[0].getMethodName());
         Drug drug = drugService.selectDrugById(drug_id);
         if (drug!=null) {
             return Result.setResult(DRUG_EXIST_ERROR).data("drug", drug);
@@ -63,6 +65,7 @@ public class DrugController {
      */
     @RequestMapping("/get_drug")
     public Result getDrug(@RequestParam("drug_id") String drug_id) {
+        System.out.println(new Date() + "\t[SmartHealthCareService]\t" +  this.getClass().getName() + ":\t" + new Exception().getStackTrace()[0].getMethodName());
         Drug drug = drugService.selectDrugById(drug_id);
         if (drug!=null) {
             return Result.ok().data("drug", drug);
@@ -76,6 +79,7 @@ public class DrugController {
      */
     @RequestMapping("/get_drug_list")
     public Result getDrugList() {
+        System.out.println(new Date() + "\t[SmartHealthCareService]\t" +  this.getClass().getName() + ":\t" + new Exception().getStackTrace()[0].getMethodName());
         List<Drug> drugList = drugService.selectDrugList();
         if (drugList!=null&&drugList.size()>0) {
             return Result.ok().data("drug_list", drugList);
