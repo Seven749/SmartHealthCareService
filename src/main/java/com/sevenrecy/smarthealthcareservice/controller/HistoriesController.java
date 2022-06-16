@@ -49,8 +49,8 @@ public class HistoriesController {
      * @param assistant_exam 辅助检查
      * @param diagnosis 诊断
      * @param advice 建议
-     * @param prescription_count 处方数量
-     * @param check_item_count 检查单数量
+//     * @param prescription_count 处方数量
+//     * @param check_item_count 检查单数量
      * @return
      */
     @RequestMapping("/create_histories")
@@ -63,9 +63,7 @@ public class HistoriesController {
                                   @RequestParam("physical_exam") String physical_exam,
                                   @RequestParam("assistant_exam") String assistant_exam,
                                   @RequestParam("diagnosis") String diagnosis,
-                                  @RequestParam("advice") String advice,
-                                  @RequestParam("prescription_count") int prescription_count,
-                                  @RequestParam("check_item_count") int check_item_count) {
+                                  @RequestParam("advice") String advice) {
         System.out.println(new Date() + "\t[SmartHealthCareService]\t" +  this.getClass().getName() + ":\t" + new Exception().getStackTrace()[0].getMethodName());
         // 编辑病历
             // 查询用户
@@ -99,8 +97,8 @@ public class HistoriesController {
         histories.setAssistant_exam(assistant_exam);
         histories.setDiagnosis(diagnosis);
         histories.setAdvice(advice);
-        histories.setPrescription_count(prescription_count);
-        histories.setCheck_item_count(check_item_count);
+        histories.setPrescription_count(0);
+        histories.setCheck_item_count(0);
         SimpleDateFormat fmt1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         fmt1.setTimeZone(TimeZone.getTimeZone("Asia/Shanghai"));
         histories.setCreate_time(fmt1.format(new Date()));

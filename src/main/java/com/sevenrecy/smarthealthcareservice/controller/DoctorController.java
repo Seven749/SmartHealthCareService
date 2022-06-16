@@ -35,7 +35,7 @@ public class DoctorController {
         System.out.println(new Date() + "\t[SmartHealthCareService]\t" +  this.getClass().getName() + ":\t" + new Exception().getStackTrace()[0].getMethodName());
         Doctor doctor = doctorService.selectDoctor(doc_id, pwd);
         if (doctor!=null) {
-            return Result.ok().data("login_doctor", doctor);
+            return Result.ok().data("loginDoctor", doctor);
         }
         return Result.setResult(LOGIN_NULL_ERROR);
     }

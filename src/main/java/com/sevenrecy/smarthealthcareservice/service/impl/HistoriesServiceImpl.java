@@ -32,4 +32,14 @@ public class HistoriesServiceImpl implements HistoriesService {
     public Histories selectHistoriesById(String histories_id) {
         return historiesDao.selectHistoriesById(histories_id);
     }
+
+    @Override
+    public int updatePrescriptionCount(int prescription_count) {
+        return historiesDao.updatePrescriptionCount(prescription_count);
+    }
+
+    @Override
+    public int updateCheckItemCount(int check_item_count) {
+        return historiesDao.updateCheckItemCount(check_item_count);
+    }
 }

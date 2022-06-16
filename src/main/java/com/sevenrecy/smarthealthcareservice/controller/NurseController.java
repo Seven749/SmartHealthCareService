@@ -26,7 +26,7 @@ public class NurseController {
         System.out.println(new Date() + "\t[SmartHealthCareService]\t" +  this.getClass().getName() + ":\t" + new Exception().getStackTrace()[0].getMethodName());
         Nurse nurse = nurseService.selectNurse(nur_id, pwd);
         if (nurse!=null) {
-            return Result.ok().data("login_nurse", nurse);
+            return Result.ok().data("loginNurse", nurse);
         }
         return Result.setResult(LOGIN_NULL_ERROR);
     }

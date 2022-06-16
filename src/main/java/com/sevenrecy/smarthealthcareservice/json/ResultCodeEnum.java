@@ -73,7 +73,10 @@ public enum ResultCodeEnum {
     DRUG_BILL_CREATE_ERROR(false, 28213, "药品账单创建失败"),
     PANDB_EXIST_ERROR(false, 28214, "处方和账单已存在"),
     CANDB_EXIST_ERROR(false, 28215, "检查和项目已存在"),
-    ITEM_BILL_CREATE_ERROR(false, 28213, "项目账单创建失败");
+    ITEM_BILL_CREATE_ERROR(false, 28213, "项目账单创建失败"),
+    PCOUNT_UPDATE_ERROR(false, 28214, "处方数量更新失败"),
+    CCOUNT_UPDATE_ERROR(false, 28215, "检查单数量更新失败")
+    ;
 
 
 
