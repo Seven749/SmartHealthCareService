@@ -3,6 +3,7 @@ package com.sevenrecy.smarthealthcareservice.service.impl;
 import com.sevenrecy.smarthealthcareservice.dao.HistoriesDao;
 import com.sevenrecy.smarthealthcareservice.entity.Histories;
 import com.sevenrecy.smarthealthcareservice.service.HistoriesService;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -34,12 +35,12 @@ public class HistoriesServiceImpl implements HistoriesService {
     }
 
     @Override
-    public int updatePrescriptionCount(int prescription_count) {
-        return historiesDao.updatePrescriptionCount(prescription_count);
+    public int updatePrescriptionCount(int prescription_count, String histories_id) {
+        return historiesDao.updatePrescriptionCount(prescription_count, histories_id);
     }
 
     @Override
-    public int updateCheckItemCount(int check_item_count) {
-        return historiesDao.updateCheckItemCount(check_item_count);
+    public int updateCheckItemCount(int check_item_count, String histories_id) {
+        return historiesDao.updateCheckItemCount(check_item_count, histories_id);
     }
 }

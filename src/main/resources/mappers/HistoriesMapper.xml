@@ -19,4 +19,8 @@
     <select id="selectHistoriesById" parameterType="String" resultType="Histories">
         SELECT * FROM histories WHERE histories_id=#{histories_id}
     </select>
+
+    <update id="updatePrescriptionCount">
+        UPDATE histories SET prescription_count=#{prescription_count} WHERE histories_id=#{histories_id}
+    </update>
 </mapper>

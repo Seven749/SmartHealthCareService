@@ -60,31 +60,9 @@ public class CheckItemController {
                 checkItemList.add(checkItem);
                 ItemBill itemBill = billService.selectItemBillByCheId(checkItem.getCheck_item_id());
                 if (itemBill==null) {
-                    itemBill = new ItemBill();
-                    itemBill.setItem_bill_id("cbi"+checkItem.getCheck_item_id().substring(5));
-                    itemBill.setCheck_item_id(checkItem.getCheck_item_id());
-                    itemBill.setHistories_id(histories_id);
-                    itemBill.setUser_id(histories.getUser_id());
-                    itemBill.setUser_name(histories.getUser_name());
-                    itemBill.setItem_id(item.getItem_id());
-                    itemBill.setItem_name(item.getName());
-                    itemBill.setPrice(item.getPrice());
-                    itemBill.setItem_count(checkItem.getItem_count());
-                    itemBill.setTotal(itemBill.getPrice()*itemBill.getItem_count());
-                    itemBill.setCount(histories.getCount());
-                    itemBill.setIsPay("No");
-                    itemBill.setCreate_time(checkItem.getCreate_time());
-                    int j = billService.createItemBill(itemBill);
-                    if (j>0) {
-                        itemBill = billService.selectItemBillByCheId(checkItem.getCheck_item_id());
-                        if (itemBill!=null) {
-                            itemBillList.add(itemBill);
-                        } else {
-                            itemBillList.add(null);
-                        }
-                    } else {
-                        itemBillList.add(null);
-                    }
+                    itemBillList.add(addCheckItem(checkItem.getCheck_item_id(), histories_id, histories.getUser_id(),
+                            histories.getUser_name(), item_id, item.getName(), item.getPrice(), item_count,
+                            histories.getCount(), checkItem.getCreate_time()));
                 } else {
                     itemBillList.add(itemBill);
                 }
@@ -106,31 +84,9 @@ public class CheckItemController {
                         checkItemList.add(checkItem);
                         ItemBill itemBill = billService.selectItemBillByCheId(checkItem.getCheck_item_id());
                         if (itemBill==null) {
-                            itemBill = new ItemBill();
-                            itemBill.setItem_bill_id("cbi"+checkItem.getCheck_item_id().substring(5));
-                            itemBill.setCheck_item_id(checkItem.getCheck_item_id());
-                            itemBill.setHistories_id(histories_id);
-                            itemBill.setUser_id(histories.getUser_id());
-                            itemBill.setUser_name(histories.getUser_name());
-                            itemBill.setItem_id(item.getItem_id());
-                            itemBill.setItem_name(item.getName());
-                            itemBill.setPrice(item.getPrice());
-                            itemBill.setItem_count(checkItem.getItem_count());
-                            itemBill.setTotal(itemBill.getPrice()*itemBill.getItem_count());
-                            itemBill.setCount(histories.getCount());
-                            itemBill.setIsPay("No");
-                            itemBill.setCreate_time(checkItem.getCreate_time());
-                            int j = billService.createItemBill(itemBill);
-                            if (j>0) {
-                                itemBill = billService.selectItemBillByCheId(checkItem.getCheck_item_id());
-                                if (itemBill!=null) {
-                                    itemBillList.add(itemBill);
-                                } else {
-                                    itemBillList.add(null);
-                                }
-                            } else {
-                                itemBillList.add(null);
-                            }
+                            itemBillList.add(addCheckItem(checkItem.getCheck_item_id(), histories_id, histories.getUser_id(),
+                                    histories.getUser_name(), item_id, item.getName(), item.getPrice(), item_count,
+                                    histories.getCount(), checkItem.getCreate_time()));
                         } else {
                             itemBillList.add(itemBill);
                         }
@@ -142,107 +98,11 @@ public class CheckItemController {
                 }
             }
         }
-        return Result.ok().data("checkItemList", checkItemList).data("itemBillList", itemBillList);
-    }
-
-    /**
-     * 新增检查记录 (已弃用)
-     * @param histories_id 病历id
-     * @param item_id 项目id
-     * @param item_count 项目数目
-     * @return
-     */
-    @RequestMapping("/create_check_item")
-    public Result creatCheckItem(@RequestParam("histories_id") String histories_id,
-                                 @RequestParam("item_id") String item_id,
-                                 @RequestParam("item_count") int item_count) {
-        System.out.println(new Date() + "\t[SmartHealthCareService]\t" +  this.getClass().getName() + ":\t" + new Exception().getStackTrace()[0].getMethodName());
-        return Result.ok().message("已弃用");
-//        Histories histories = historiesService.selectHistoriesById(histories_id);
-//        if (histories==null) {
-//            return Result.setResult(HISTORIES_NULL_ERROR);
-//        }
-//        Item item = itemService.selectItemById(item_id);
-//        if (item==null) {
-//            return Result.setResult(ITEM_NULL_ERROR);
-//        }
-//        CheckItem checkItem = checkItemService.selectCheckItem(histories_id, item_id);
-//        if (checkItem!=null) {
-//            ItemBill itemBill = billService.selectItemBillByCheId(checkItem.getCheck_item_id());
-//            if (itemBill==null) {
-//                itemBill = new ItemBill();
-//                itemBill.setItem_bill_id("cbi"+checkItem.getCheck_item_id().substring(5));
-//                itemBill.setCheck_item_id(checkItem.getCheck_item_id());
-//                itemBill.setHistories_id(histories_id);
-//                itemBill.setUser_id(histories.getUser_id());
-//                itemBill.setUser_name(histories.getUser_name());
-//                itemBill.setItem_id(item.getItem_id());
-//                itemBill.setItem_name(item.getName());
-//                itemBill.setPrice(item.getPrice());
-//                itemBill.setItem_count(checkItem.getItem_count());
-//                itemBill.setTotal(itemBill.getPrice()*itemBill.getItem_count());
-//                itemBill.setCount(histories.getCount());
-//                itemBill.setIsPay("No");
-//                itemBill.setCreate_time(checkItem.getCreate_time());
-//                int j = billService.createItemBill(itemBill);
-//                if (j>0) {
-//                    itemBill = billService.selectItemBillByCheId(checkItem.getCheck_item_id());
-//                    if (itemBill!=null) {
-//                        return Result.setResult(CHECK_EXIST_ERROR).data("checkItem", checkItem).data("itemBill", itemBill);
-//                    } else {
-//                        return Result.setResult(DATABASE_ERROR).data("checkItem", checkItem);
-//                    }
-//                }
-//                return Result.setResult(ITEM_BILL_CREATE_ERROR).data("checkItem", checkItem);
-//            }
-//            return Result.setResult(CANDB_EXIST_ERROR).data("checkItem", checkItem).data("itemBill", itemBill);
-//        }
-//        checkItem = new CheckItem();
-//        checkItem.setHistories_id(histories.getHistories_id());
-//        checkItem.setItem_id(item.getItem_id());
-//        checkItem.setItem_name(item.getName());
-//        checkItem.setItem_count(item_count);
-//        SimpleDateFormat fmt1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-//        fmt1.setTimeZone(TimeZone.getTimeZone("Asia/Shanghai"));
-//        String date = fmt1.format(new Date());
-//        checkItem.setCreate_time(date);
-//        checkItem.setCheck_item_id("check"+histories_id.substring(3,10)+date.substring(14,16)+date.substring(17));
-//        int i = checkItemService.insertCheckItem(checkItem);
-//        if (i>0) {
-//            checkItem = checkItemService.selectCheckItemById(checkItem.getCheck_item_id());
-//            if (checkItem!=null) {
-//                ItemBill itemBill = billService.selectItemBillByCheId(checkItem.getCheck_item_id());
-//                if (itemBill==null) {
-//                    itemBill = new ItemBill();
-//                    itemBill.setItem_bill_id("cbi"+checkItem.getCheck_item_id().substring(5));
-//                    itemBill.setCheck_item_id(checkItem.getCheck_item_id());
-//                    itemBill.setHistories_id(histories_id);
-//                    itemBill.setUser_id(histories.getUser_id());
-//                    itemBill.setUser_name(histories.getUser_name());
-//                    itemBill.setItem_id(item.getItem_id());
-//                    itemBill.setItem_name(item.getName());
-//                    itemBill.setPrice(item.getPrice());
-//                    itemBill.setItem_count(checkItem.getItem_count());
-//                    itemBill.setTotal(itemBill.getPrice()*itemBill.getItem_count());
-//                    itemBill.setCount(histories.getCount());
-//                    itemBill.setIsPay("No");
-//                    itemBill.setCreate_time(checkItem.getCreate_time());
-//                    int j = billService.createItemBill(itemBill);
-//                    if (j>0) {
-//                        itemBill = billService.selectItemBillByCheId(checkItem.getCheck_item_id());
-//                        if (itemBill!=null) {
-//                            return Result.ok().data("checkItem", checkItem).data("itemBill", itemBill);
-//                        } else {
-//                            return Result.setResult(DATABASE_ERROR).data("checkItem", checkItem);
-//                        }
-//                    }
-//                    return Result.setResult(ITEM_BILL_CREATE_ERROR).data("checkItem", checkItem);
-//                }
-//                return Result.setResult(CANDB_EXIST_ERROR).data("checkItem", checkItem).data("itemBill", itemBill);
-//            }
-//            return Result.setResult(DATABASE_ERROR);
-//        }
-//        return Result.setResult(DATABASE_ERROR);
+        int i = historiesService.updateCheckItemCount(size, histories_id);
+        if (i > 0) {
+            return Result.ok().data("checkItemList", checkItemList).data("itemBillList", itemBillList);
+        }
+        return Result.setResult(CCOUNT_UPDATE_ERROR).data("checkItemList", checkItemList).data("itemBillList", itemBillList);
     }
 
     /**
@@ -272,5 +132,33 @@ public class CheckItemController {
             return Result.ok().data("checkItemList", checkItemList);
         }
         return Result.setResult(CHECK_NULL_ERROR);
+    }
+
+    private ItemBill addCheckItem(String check_item_id, String histories_id, int user_id, String user_name, String item_id, String item_name, double price, int item_count, int count, String create_time) {
+        ItemBill itemBill = new ItemBill();
+        itemBill.setItem_bill_id("cbi"+check_item_id.substring(5));
+        itemBill.setCheck_item_id(check_item_id);
+        itemBill.setHistories_id(histories_id);
+        itemBill.setUser_id(user_id);
+        itemBill.setUser_name(user_name);
+        itemBill.setItem_id(item_id);
+        itemBill.setItem_name(item_name);
+        itemBill.setPrice(price);
+        itemBill.setItem_count(item_count);
+        itemBill.setTotal(itemBill.getPrice()*itemBill.getItem_count());
+        itemBill.setCount(count);
+        itemBill.setIsPay("No");
+        itemBill.setCreate_time(create_time);
+        int j = billService.createItemBill(itemBill);
+        if (j>0) {
+            itemBill = billService.selectItemBillByCheId(check_item_id);
+            if (itemBill!=null) {
+                return itemBill;
+            } else {
+                return null;
+            }
+        } else {
+            return null;
+        }
     }
 }

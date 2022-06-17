@@ -1,6 +1,7 @@
 package com.sevenrecy.smarthealthcareservice.dao;
 
 import com.sevenrecy.smarthealthcareservice.entity.Histories;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -38,12 +39,12 @@ public interface HistoriesDao {
      * @param prescription_count 处方数量
      * @return
      */
-    int updatePrescriptionCount(int prescription_count);
+    int updatePrescriptionCount(@Param("prescription_count") int prescription_count, @Param("histories_id") String histories_id);
 
     /**
      * 更新病历下的检查单数量
      * @param check_item_count 检查单数量
      * @return
      */
-    int updateCheckItemCount(int check_item_count);
+    int updateCheckItemCount(@Param("check_item_count") int check_item_count, @Param("histories_id") String histories_id);
 }
