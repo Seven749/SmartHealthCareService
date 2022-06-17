@@ -38,7 +38,6 @@ public class PrescriptionController {
 
     /**
      * 创建处方（多个）
-     *
      * @param histories_id   病历id
      * @param drug_idList    药品id列表
      * @param drug_countList 药品数量列表
@@ -120,7 +119,6 @@ public class PrescriptionController {
 
     /**
      * 获取处方信息
-     *
      * @param prescription_id 处方id
      * @return
      */
@@ -154,6 +152,20 @@ public class PrescriptionController {
         return Result.setResult(HISTORIES_NULL_ERROR);
     }
 
+    /**
+     * 创建药物账单
+     * @param prescription_id 处方id
+     * @param histories_id 病历id
+     * @param user_id 用户id
+     * @param user_name 用户姓名
+     * @param drug_id 药物id
+     * @param drug_name 药物名称
+     * @param price 药物价格
+     * @param drug_count 药物数量
+     * @param count 用户第几次就诊
+     * @param create_time 创建时间
+     * @return
+     */
     private DrugBill addDrugBill(String prescription_id, String histories_id, int user_id, String user_name, String drug_id, String drug_name, double price, int drug_count, int count, String create_time) {
         DrugBill drugBill = new DrugBill();
         drugBill.setDrug_id(drug_id);

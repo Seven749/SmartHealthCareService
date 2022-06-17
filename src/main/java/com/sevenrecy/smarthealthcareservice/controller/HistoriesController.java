@@ -49,8 +49,6 @@ public class HistoriesController {
      * @param assistant_exam 辅助检查
      * @param diagnosis 诊断
      * @param advice 建议
-//     * @param prescription_count 处方数量
-//     * @param check_item_count 检查单数量
      * @return
      */
     @RequestMapping("/create_histories")
@@ -150,6 +148,11 @@ public class HistoriesController {
         return Result.ok().data("histories", histories);
     }
 
+    /**
+     * 获取病历列表
+     * @param user_id 用户id
+     * @return
+     */
     @RequestMapping("/get_histories_list")
     public Result getHistoriesList(@RequestParam("user_id") int user_id) {
         System.out.println(new Date() + "\t[SmartHealthCareService]\t" +  this.getClass().getName() + ":\t" + new Exception().getStackTrace()[0].getMethodName());
