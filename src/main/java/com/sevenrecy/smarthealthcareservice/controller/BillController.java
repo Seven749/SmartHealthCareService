@@ -15,7 +15,8 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api")
-@CrossOrigin(origins = "http://localhost:8080",maxAge = 3600)
+//@CrossOrigin(origins = "http://localhost:8080",maxAge = 3600)
+@CrossOrigin(origins = "http://localhost:63342",maxAge = 3600)
 public class BillController {
     @Autowired
     BillService billService;

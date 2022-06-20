@@ -18,7 +18,8 @@ import static com.sevenrecy.smarthealthcareservice.json.ResultCodeEnum.*;
 
 @RestController
 @RequestMapping("/api")
-@CrossOrigin(origins = "http://localhost:8080",maxAge = 3600)
+//@CrossOrigin(origins = "http://localhost:8080",maxAge = 3600)
+@CrossOrigin(origins = "http://localhost:63342",maxAge = 3600)
 public class DoctorController {
     @Autowired
     DoctorService doctorService;
