@@ -6,6 +6,8 @@ import com.sevenrecy.smarthealthcareservice.service.ReportService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 
 @Service
 public class ReportServiceImpl implements ReportService {
@@ -18,7 +20,7 @@ public class ReportServiceImpl implements ReportService {
     }
 
     @Override
-    public Report getReportList(int user_id) {
+    public List<Report> getReportList(int user_id) {
         return reportDao.getReportList(user_id);
     }
 }

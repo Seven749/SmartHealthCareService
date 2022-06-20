@@ -35,5 +35,5 @@ public interface RegistrationDao {
      * @param time 预约日期
      * @return
      */
-    int selectNumByTime(@Param("doc_id") String doc_id, @Param("time") String time);
+    int selectNumByTime(@Param("doc_id") String doc_id, @Param("date") String date, @Param("time") String time);
 }

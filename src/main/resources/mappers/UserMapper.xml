@@ -28,4 +28,8 @@
     <update id="updateSysUserPwd">
         UPDATE user SET pwd=#{pwd}, tel=#{tel} WHERE user_id=#{user_id}
     </update>
+    
+    <update id="updateBalance">
+        UPDATE user SET balacne=balance+#{balance} WHERE user_id=#{user_id}
+    </update>
 </mapper>

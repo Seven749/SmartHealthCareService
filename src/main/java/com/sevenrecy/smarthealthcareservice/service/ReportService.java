@@ -3,6 +3,8 @@ package com.sevenrecy.smarthealthcareservice.service;
 import com.sevenrecy.smarthealthcareservice.entity.Report;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+
 public interface ReportService {
     /**
      * 获取报告详情
@@ -16,5 +18,5 @@ public interface ReportService {
      * @param user_id 用户id
      * @return
      */
-    Report getReportList(@Param("user_id") int user_id);
+    List<Report> getReportList(@Param("user_id") int user_id);
 }

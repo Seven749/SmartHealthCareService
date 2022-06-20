@@ -3,6 +3,8 @@ package com.sevenrecy.smarthealthcareservice.dao;
 import com.sevenrecy.smarthealthcareservice.entity.Report;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+
 public interface ReportDao {
 
     /**
@@ -17,5 +19,5 @@ public interface ReportDao {
      * @param user_id 用户id
      * @return
      */
-    Report getReportList(@Param("user_id") int user_id);
+    List<Report> getReportList(@Param("user_id") int user_id);
 }

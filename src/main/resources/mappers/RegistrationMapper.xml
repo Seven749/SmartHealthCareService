@@ -15,4 +15,8 @@
         INSERT INTO registration(record_id, user_id, user_name, doc_id, doc_name, dept_id, dept_name, num, price, date, time, create_time)
         VALUES (#{record_id}, #{user_id}, #{user_name}, #{doc_id}, #{doc_name}, #{dept_id}, #{dept_name}, #{num}, #{price}, #{date}, #{time}, #{create_time})
     </insert>
+    
+    <select id="selectNumByTime" parameterType="String" resultType="int">
+        SELECT num FROM registration WHERE doc_id=#{doc_id} AND date=#{date} AND time=#{time}
+    </select>
 </mapper>

@@ -65,4 +65,20 @@ public interface BillService {
      * @return
      */
     DrugBill selectDrugBillByPreId(@Param("prescription_id") String prescription_id);
+
+    /**
+     * 支付药物账单
+     * @param drug_bill_id 药物账单id
+     * @param user_id 用户id
+     * @return
+     */
+    int updateDrugBillPay(@Param("drug_bill_id") String drug_bill_id, @Param("user_id") int user_id);
+
+    /**
+     * 支付项目账单
+     * @param item_bill_id 项目账单id
+     * @param user_id 用户id
+     * @return
+     */
+    int updateItemBillPay(@Param("item_bill_id") String item_bill_id, @Param("user_id") int user_id);
 }

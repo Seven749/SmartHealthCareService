@@ -53,4 +53,14 @@ public class BillServiceImpl implements BillService {
     public DrugBill selectDrugBillByPreId(String prescription_id) {
         return billDao.selectDrugBillByPreId(prescription_id);
     }
+
+    @Override
+    public int updateDrugBillPay(String drug_bill_id, int user_id) {
+        return billDao.updateDrugBillPay(drug_bill_id, user_id);
+    }
+
+    @Override
+    public int updateItemBillPay(String item_bill_id, int user_id) {
+        return billDao.updateItemBillPay(item_bill_id, user_id);
+    }
 }

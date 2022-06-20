@@ -141,4 +141,21 @@ public class RegistrationController {
         return Result.ok().data("registrationList", registrationList);
     }
 
+    /**
+     * 获取医生再某一时间的号
+     * @param doc_id 医生id
+     * @param date 日期
+     * @param time 时间
+     * @return
+     */
+    @RequestMapping("/get_num")
+    public Result getNum(@RequestParam("doc_id") String doc_id,
+                         @RequestParam("date") String date,
+                         @RequestParam("time") String time) {
+        int num = registrationService.selectNumByTime(doc_id, date, time);
+        if (num>0) {
+            return Result.ok().data("num", num);
+        }
+        return Result.setResult(REGISTRATION_NULL_ERROR);
+    }
 }

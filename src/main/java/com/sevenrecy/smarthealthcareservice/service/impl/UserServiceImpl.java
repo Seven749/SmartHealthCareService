@@ -41,4 +41,9 @@ public class UserServiceImpl implements UserService {
     public int updateSysUserPwd(int user_id, String tel, String pwd) {
         return userDao.updateSysUserPwd(user_id, tel, pwd);
     }
+
+    @Override
+    public int updateBalance(int user_id, double balance) {
+        return userDao.updateBalance(user_id, balance);
+    }
 }

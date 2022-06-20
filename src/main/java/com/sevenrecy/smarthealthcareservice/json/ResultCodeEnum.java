@@ -75,7 +75,8 @@ public enum ResultCodeEnum {
     CANDB_EXIST_ERROR(false, 28215, "检查和项目已存在"),
     ITEM_BILL_CREATE_ERROR(false, 28213, "项目账单创建失败"),
     PCOUNT_UPDATE_ERROR(false, 28214, "处方数量更新失败"),
-    CCOUNT_UPDATE_ERROR(false, 28215, "检查单数量更新失败")
+    CCOUNT_UPDATE_ERROR(false, 28215, "检查单数量更新失败"),
+    REPORT_NULL_ERROR(false, 28216, "检查报告单不存在")
     ;
 
 

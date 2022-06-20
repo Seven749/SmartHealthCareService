@@ -27,4 +27,10 @@ public class RegistrationServiceImpl implements RegistrationService {
     public int insertRegistration(Registration registration) {
         return registrationDao.insertRegistration(registration);
     }
+
+    @Override
+    public int selectNumByTime(String doc_id, String date, String time) {
+        return registrationDao.selectNumByTime(doc_id, date, time);
+    }
+
 }

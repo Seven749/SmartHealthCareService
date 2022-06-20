@@ -1,19 +1,14 @@
 package com.sevenrecy.smarthealthcareservice.controller;
 
-import com.sevenrecy.smarthealthcareservice.entity.Drug;
-import com.sevenrecy.smarthealthcareservice.entity.DrugBill;
-import com.sevenrecy.smarthealthcareservice.entity.Histories;
-import com.sevenrecy.smarthealthcareservice.entity.Prescription;
+import com.sevenrecy.smarthealthcareservice.entity.*;
+import com.sevenrecy.smarthealthcareservice.entity.input.InPre;
 import com.sevenrecy.smarthealthcareservice.json.Result;
 import com.sevenrecy.smarthealthcareservice.service.BillService;
 import com.sevenrecy.smarthealthcareservice.service.DrugService;
 import com.sevenrecy.smarthealthcareservice.service.HistoriesService;
 import com.sevenrecy.smarthealthcareservice.service.PrescriptionService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -35,6 +30,81 @@ public class PrescriptionController {
     DrugService drugService;
     @Autowired
     BillService billService;
+
+
+    @RequestMapping("/create_pre_list")
+    public Result createPreList(@RequestBody List<InPre> inPreList) {
+        System.out.println(new Date() + "\t[SmartHealthCareService]\t" + this.getClass().getName() + ":\t" + new Exception().getStackTrace()[0].getMethodName());
+        System.out.println(inPreList);
+        int size = inPreList.size();
+        List<Prescription> prescriptionList = new ArrayList<>();
+        List<DrugBill> drugBillList = new ArrayList<>();
+        String histories_id = inPreList.get(0).getHistories_id();
+        for (int i = 0; i < size; i++) {
+            InPre inPre = inPreList.get(i);
+            String drug_id = inPre.getDrug_id();
+            int drug_count = inPre.getDrug_count();
+            String usages = inPre.getUsages();
+
+            Drug drug = drugService.selectDrugById(drug_id);
+            if (drug == null) {
+                return Result.setResult(DRUG_NULL_ERROR);
+            }
+            Histories histories = historiesService.selectHistoriesById(histories_id);
+            if (histories == null) {
+                return Result.setResult(HISTORIES_NULL_ERROR);
+            }
+            Prescription prescription = prescriptionService.selectPrescription(histories_id, drug_id);
+            if (prescription != null) {
+                prescriptionList.add(prescription);
+                DrugBill drugBill = billService.selectDrugBillByPreId(prescription.getPrescription_id());
+                if (drugBill == null) {
+                    drugBillList.add(addDrugBill(prescription.getPrescription_id(), histories.getHistories_id(),
+                            histories.getUser_id(), histories.getUser_name(), drug.getDrug_id(), drug.getName(),
+                            drug.getPrice(), drug_count, histories.getCount(),prescription.getCreate_time()));
+                } else {
+                    drugBillList.add(drugBill);
+                }
+            } else {
+                prescription = new Prescription();
+                prescription.setHistories_id(histories.getHistories_id());
+                prescription.setDrug_id(drug.getDrug_id());
+                prescription.setDrug_name(drug.getName());
+                prescription.setDrug_count(drug_count);
+                prescription.setUsages(usages);
+                SimpleDateFormat fmt1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                fmt1.setTimeZone(TimeZone.getTimeZone("Asia/Shanghai"));
+                String date = fmt1.format(new Date());
+                prescription.setCreate_time(date);
+                System.out.println(prescription.getCreate_time());
+                prescription.setPrescription_id("pre" + histories_id.substring(3, 10) + date.substring(14, 16) + date.substring(17));
+                int k = prescriptionService.insertPrescription(prescription);
+                if (k > 0) {
+                    prescription = prescriptionService.selectPrescriptionById(prescription.getPrescription_id());
+                    prescriptionList.add(prescription);
+                    if (prescription != null) {
+                        DrugBill drugBill = billService.selectDrugBillByPreId(prescription.getPrescription_id());
+                        if (drugBill == null) {
+                            drugBillList.add(addDrugBill(prescription.getPrescription_id(), histories.getHistories_id(),
+                                    histories.getUser_id(), histories.getUser_name(), drug.getDrug_id(), drug.getName(),
+                                    drug.getPrice(), drug_count, histories.getCount(),prescription.getCreate_time()));
+                        } else {
+                            drugBillList.add(drugBill);
+                        }
+                    } else {
+                        prescriptionList.add(null);
+                    }
+                } else {
+                    prescriptionList.add(null);
+                }
+            }
+        }
+        int i = historiesService.updatePrescriptionCount(size, histories_id);
+        if (i > 0) {
+            return Result.ok().data("prescriptionList", prescriptionList).data("drugBillList", drugBillList);
+        }
+        return Result.setResult(PCOUNT_UPDATE_ERROR).data("prescriptionList", prescriptionList).data("drugBillList", drugBillList);
+    }
 
     /**
      * 创建处方（多个）

@@ -43,9 +43,17 @@ public interface UserService {
 
     /**
      * 找回密码时调用此接口进行修改密码
-     * @param user_id
-     * @param pwd
+     * @param user_id 用户id
+     * @param pwd 用户新密码
      * @return
      */
     int updateSysUserPwd(int user_id, String tel , String pwd);
+
+    /**
+     * 住院预交费调用此接口
+     * @param user_id 用户id
+     * @param balance 用户余额
+     * @return
+     */
+    int updateBalance(@Param("user_id") int user_id, @Param("balance") double balance);
 }

@@ -1,10 +1,9 @@
 package com.sevenrecy.smarthealthcareservice.controller;
 
 import com.sevenrecy.smarthealthcareservice.entity.*;
+import com.sevenrecy.smarthealthcareservice.entity.input.InPre;
 import com.sevenrecy.smarthealthcareservice.json.Result;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -13,7 +12,20 @@ import static com.sevenrecy.smarthealthcareservice.json.ResultCodeEnum.*;
 
 @RestController
 //@RequestMapping("/json")
+@CrossOrigin(origins = "http://localhost:63342",maxAge = 3600)
 public class TestUserController {
+
+    /**
+     * !!!
+     * @param inPreList
+     * @return
+     */
+    @RequestMapping("/test")
+    public Result test(@RequestBody List<InPre> inPreList) {
+        System.out.println(new Date() + "\t[SmartHealthCareService]\t" + this.getClass().getName() + ":\t" + new Exception().getStackTrace()[0].getMethodName());
+        System.out.println(inPreList);
+        return Result.ok();
+    }
 
     @RequestMapping("/")
     public String getIndex() {

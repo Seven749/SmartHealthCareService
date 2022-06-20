@@ -36,4 +36,12 @@
     <select id="selectDrugBillByPreId" parameterType="String" resultType="DrugBill">
         SELECT * FROM drug_bill WHERE prescription_id=#{prescription_id}
     </select>
+
+    <update id="updateDrugBillPay">
+        UPDATE drug_bill SET isPay='Yes' WHERE user_id=#{user_id} AND drug_bill_id=#{drug_bill_id}
+    </update>
+
+    <update id="updateItemBillPay">
+        UPDATE item_bill SET isPay='Yes' WHERE user_id=#{user_id} AND item_bill_id=#{item_bill_id}
+    </update>
 </mapper>

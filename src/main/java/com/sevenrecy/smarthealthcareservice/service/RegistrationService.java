@@ -27,4 +27,12 @@ public interface RegistrationService {
      * @return
      */
     int insertRegistration(Registration registration);
+
+    /**
+     * 获取医生某一天已预约到几号
+     * @param doc_id 医生id
+     * @param time 预约日期
+     * @return
+     */
+    int selectNumByTime(@Param("doc_id") String doc_id, @Param("date") String date, @Param("time") String time);
 }
