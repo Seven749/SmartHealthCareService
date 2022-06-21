@@ -35,7 +35,7 @@ public class UserController {
         User user = userService.selectSysUserByTel(tel);
         if (user!=null) {
             if (user.getPwd().equals(pwd)) {
-                return Result.ok().data("loginUser", user);
+                return Result.ok().data("loginUser", setAge(user));
             } else {
                 return Result.setResult(LOGIN_PASSWORD_ERROR);
             }
@@ -95,7 +95,7 @@ public class UserController {
                 int i = userService.updateSysUserPwd(user_id, user.getTel(), user.getPwd());
                 if (i>0) {
                     user = userService.selectSysUserByTel(tel);
-                    return Result.ok().data("user", user);
+                    return Result.ok().data("user", setAge(user));
                 }
                 return Result.setResult(DATABASE_ERROR);
             } else {
@@ -107,7 +107,7 @@ public class UserController {
         int i = userService.insertSysUser(user);
         if (i>0) {
             user = userService.selectSysUserByTel(tel);
-            return Result.ok().data("registerUser", user);
+            return Result.ok().data("registerUser", setAge(user));
         }
         return Result.setResult(DATABASE_ERROR);
     }
@@ -123,7 +123,7 @@ public class UserController {
             int i = userService.updateSysUserPwd(user_id, tel, pwd);
             if (i>0) {
                 user = userService.selectSysUserByTel(tel);
-                return Result.ok().data("user", user);
+                return Result.ok().data("user", setAge(user));
             }
             return Result.setResult(DATABASE_ERROR);
         }
@@ -135,13 +135,28 @@ public class UserController {
         System.out.println(new Date() + "\t[SmartHealthCareService]\t" +  this.getClass().getName() + ":\t" + new Exception().getStackTrace()[0].getMethodName());
         User user = userService.selectSysUserById(user_id);
         if (user!=null) {
-            return Result.ok().data("user", user);
+            return Result.ok().data("user", setAge(user));
         }
         return Result.setResult(USER_NULL_ERROR);
     }
 
-    // 身份证检测
-
-
-    // 手机号检测
+    /**
+     * 实时计算年龄
+     * @param user 用户对象
+     * @return
+     */
+    private User setAge(User user) {
+        int age;
+        String birth = user.getBirthday();
+        SimpleDateFormat fmt1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        fmt1.setTimeZone(TimeZone.getTimeZone("Asia/Shanghai"));
+        String date = fmt1.format(new Date());
+        age = Integer.parseInt(date.substring(0,4)) - Integer.parseInt(birth.substring(0,4));
+        if (Integer.parseInt((date.substring(5,7))) < Integer.parseInt(birth.substring(5,7)) ||
+                Integer.parseInt((date.substring(8,10))) < Integer.parseInt(birth.substring(8,10))) {
+            age -= 1;
+        }
+        user.setAge(age);
+        return user;
+    }
 }

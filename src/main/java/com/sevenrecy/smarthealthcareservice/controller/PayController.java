@@ -35,6 +35,8 @@ public class PayController {
     public Result saveBalance(@RequestParam("user_id") int user_id,
                               @RequestParam("balance") double balance) {
         System.out.println(new Date() + "\t[SmartHealthCareService]\t" +  this.getClass().getName() + ":\t" + new Exception().getStackTrace()[0].getMethodName());
+        System.out.println("user_id:" + user_id);
+        System.out.println("balance:" + balance);
         int i = userService.updateBalance(user_id, balance);
         System.out.println(i);
         if (i==1) {
@@ -44,6 +46,11 @@ public class PayController {
         return Result.setResult(DATABASE_ERROR);
     }
 
+    /**
+     * 支付账单
+     * @param inPayBillList 请求支付的列表
+     * @return
+     */
     @RequestMapping("/pay_bill")
     public Result payBill(@RequestBody List<InPayBill> inPayBillList) {
         System.out.println(new Date() + "\t[SmartHealthCareService]\t" +  this.getClass().getName() + ":\t" + new Exception().getStackTrace()[0].getMethodName());

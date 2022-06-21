@@ -14,4 +14,5 @@ public class User {
     private int count = 0;
     private String create_time;
     private double balance = 0.0;
+    private int age;
 }

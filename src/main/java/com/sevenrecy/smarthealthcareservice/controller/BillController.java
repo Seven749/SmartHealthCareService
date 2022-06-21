@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -25,14 +26,35 @@ public class BillController {
     public Result getBillList(@RequestParam("user_id") int user_id) {
         System.out.println(new Date() + "\t[SmartHealthCareService]\t" +  this.getClass().getName() + ":\t" + new Exception().getStackTrace()[0].getMethodName());
         List<ItemBill> itemBillList = billService.selectItemBillList(user_id);
+        List<ItemBill> itemBillListYes = new ArrayList<>();
+        List<ItemBill> itemBillListNo = new ArrayList<>();
         if (itemBillList==null||itemBillList.size()==0) {
             itemBillList = null;
         }
+        assert itemBillList != null;
+        for (ItemBill itemBill: itemBillList) {
+            if (itemBill.getIsPay().equals("Yes")) {
+                itemBillListYes.add(itemBill);
+            } else {
+                itemBillListNo.add(itemBill);
+            }
+        }
         List<DrugBill> drugBillList = billService.selectDrugBillList(user_id);
+        List<DrugBill> drugBillListYes = new ArrayList<>();
+        List<DrugBill> drugBillListNo = new ArrayList<>();
         if (drugBillList==null||drugBillList.size()==0) {
             drugBillList = null;
         }
-        return Result.ok().data("itemBillList", itemBillList).data("drugBillList", drugBillList);
+        assert drugBillList != null;
+        for (DrugBill drugBill: drugBillList) {
+            if (drugBill.getIsPay().equals("Yes")) {
+                drugBillListYes.add(drugBill);
+            } else {
+                drugBillListNo.add(drugBill);
+            }
+        }
+        return Result.ok().data("itemBillListYes", itemBillListYes).data("itemBillListNo", itemBillListNo)
+                .data("drugBillListYes", drugBillListYes).data("drugBillListNo", drugBillListNo);
     }
 
     @RequestMapping("/get_bill_list_by_count")
