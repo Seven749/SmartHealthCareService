@@ -4,16 +4,14 @@ import com.sevenrecy.smarthealthcareservice.entity.CheckItem;
 import com.sevenrecy.smarthealthcareservice.entity.Histories;
 import com.sevenrecy.smarthealthcareservice.entity.Item;
 import com.sevenrecy.smarthealthcareservice.entity.ItemBill;
+import com.sevenrecy.smarthealthcareservice.entity.input.InChe;
 import com.sevenrecy.smarthealthcareservice.json.Result;
 import com.sevenrecy.smarthealthcareservice.service.BillService;
 import com.sevenrecy.smarthealthcareservice.service.CheckItemService;
 import com.sevenrecy.smarthealthcareservice.service.HistoriesService;
 import com.sevenrecy.smarthealthcareservice.service.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -37,18 +35,23 @@ public class CheckItemController {
     @Autowired
     BillService billService;
 
+    /**
+     * 创建检查项目列表
+     * @param inCheList 传入检查单列表
+     * @return
+     */
     @RequestMapping("/create_check_item_list")
-    public Result createCheckItemList(@RequestParam("histories_id") String histories_id,
-                                      @RequestParam("item_id_list") List<String> item_idList,
-                                      @RequestParam("item_count_list") List<Short> item_countList) {
+    public Result createCheckItemList(@RequestBody List<InChe> inCheList) {
         System.out.println(new Date() + "\t[SmartHealthCareService]\t" +  this.getClass().getName() + ":\t" + new Exception().getStackTrace()[0].getMethodName());
-        int size = item_idList.size();
+        int size = inCheList.size();
         List<CheckItem> checkItemList = new ArrayList<>();
         List<ItemBill> itemBillList = new ArrayList<>();
+        String histories_id = inCheList.get(0).getHistories_id();
         for (int k = 0; k < size; k++) {
+            InChe inChe = inCheList.get(k);
             Histories histories = historiesService.selectHistoriesById(histories_id);
-            String item_id = item_idList.get(k);
-            int item_count = item_countList.get(k);
+            String item_id = inChe.getItem_id();
+            int item_count = inChe.getItem_count();
             if (histories==null) {
                 return Result.setResult(HISTORIES_NULL_ERROR);
             }
@@ -105,6 +108,82 @@ public class CheckItemController {
         }
         return Result.setResult(CCOUNT_UPDATE_ERROR).data("checkItemList", checkItemList).data("itemBillList", itemBillList);
     }
+
+//    /**
+//     * 创建检查项目列表
+//     * @param histories_id 病历id
+//     * @param item_idList 项目id列表
+//     * @param item_countList 项目数量列表
+//     * @return
+//     */
+//    @RequestMapping("/create_check_item_list")
+//    public Result createCheckItemList(@RequestParam("histories_id") String histories_id,
+//                                      @RequestParam("item_id_list") List<String> item_idList,
+//                                      @RequestParam("item_count_list") List<Short> item_countList) {
+//        System.out.println(new Date() + "\t[SmartHealthCareService]\t" +  this.getClass().getName() + ":\t" + new Exception().getStackTrace()[0].getMethodName());
+//        int size = item_idList.size();
+//        List<CheckItem> checkItemList = new ArrayList<>();
+//        List<ItemBill> itemBillList = new ArrayList<>();
+//        for (int k = 0; k < size; k++) {
+//            Histories histories = historiesService.selectHistoriesById(histories_id);
+//            String item_id = item_idList.get(k);
+//            int item_count = item_countList.get(k);
+//            if (histories==null) {
+//                return Result.setResult(HISTORIES_NULL_ERROR);
+//            }
+//            Item item = itemService.selectItemById(item_id);
+//            if (item==null) {
+//                return Result.setResult(ITEM_NULL_ERROR);
+//            }
+//            CheckItem checkItem = checkItemService.selectCheckItem(histories_id, item_id);
+//            if (checkItem!=null) {
+//                checkItemList.add(checkItem);
+//                ItemBill itemBill = billService.selectItemBillByCheId(checkItem.getCheck_item_id());
+//                if (itemBill==null) {
+//                    itemBillList.add(addCheckItem(checkItem.getCheck_item_id(), histories_id, histories.getUser_id(),
+//                            histories.getUser_name(), item_id, item.getName(), item.getPrice(), item_count,
+//                            histories.getCount(), checkItem.getCreate_time()));
+//                } else {
+//                    itemBillList.add(itemBill);
+//                }
+//            } else {
+//                checkItem = new CheckItem();
+//                checkItem.setHistories_id(histories.getHistories_id());
+//                checkItem.setItem_id(item.getItem_id());
+//                checkItem.setItem_name(item.getName());
+//                checkItem.setItem_count(item_count);
+//                SimpleDateFormat fmt1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//                fmt1.setTimeZone(TimeZone.getTimeZone("Asia/Shanghai"));
+//                String date = fmt1.format(new Date());
+//                checkItem.setCreate_time(date);
+//                checkItem.setCheck_item_id("check"+histories_id.substring(3,10)+date.substring(14,16)+date.substring(17));
+//                int i = checkItemService.insertCheckItem(checkItem);
+//                if (i>0) {
+//                    checkItem = checkItemService.selectCheckItemById(checkItem.getCheck_item_id());
+//                    if (checkItem!=null) {
+//                        checkItemList.add(checkItem);
+//                        ItemBill itemBill = billService.selectItemBillByCheId(checkItem.getCheck_item_id());
+//                        if (itemBill==null) {
+//                            itemBillList.add(addCheckItem(checkItem.getCheck_item_id(), histories_id, histories.getUser_id(),
+//                                    histories.getUser_name(), item_id, item.getName(), item.getPrice(), item_count,
+//                                    histories.getCount(), checkItem.getCreate_time()));
+//                        } else {
+//                            itemBillList.add(itemBill);
+//                        }
+//                    } else {
+//                        checkItemList.add(null);
+//                    }
+//                } else {
+//                    checkItemList.add(null);
+//                }
+//            }
+//        }
+//        int i = historiesService.updateCheckItemCount(size, histories_id);
+//        if (i > 0) {
+//            return Result.ok().data("checkItemList", checkItemList).data("itemBillList", itemBillList);
+//        }
+//        return Result.setResult(CCOUNT_UPDATE_ERROR).data("checkItemList", checkItemList).data("itemBillList", itemBillList);
+//    }
 
     /**
      * 获取检查项目信息

@@ -30,6 +30,6 @@
     </update>
     
     <update id="updateBalance">
-        UPDATE user SET balacne=balance+#{balance} WHERE user_id=#{user_id}
+        UPDATE user SET balance=balance+#{balance} WHERE user_id=#{user_id}
     </update>
 </mapper>

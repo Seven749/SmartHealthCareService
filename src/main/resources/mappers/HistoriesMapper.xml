@@ -23,4 +23,8 @@
     <update id="updatePrescriptionCount">
         UPDATE histories SET prescription_count=#{prescription_count} WHERE histories_id=#{histories_id}
     </update>
+
+    <update id="updateCheckItemCount">
+        UPDATE histories SET check_item_count=#{check_item_count} WHERE histories_id=#{histories_id}
+    </update>
 </mapper>

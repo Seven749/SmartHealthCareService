@@ -32,8 +32,12 @@ public class PrescriptionController {
     @Autowired
     BillService billService;
 
-
-    @RequestMapping("/create_pre_list")
+    /**
+     * 创建处方单列表
+     * @param inPreList 传入处方单列表
+     * @return
+     */
+    @RequestMapping("/create_prescription_list")
     public Result createPreList(@RequestBody List<InPre> inPreList) {
         System.out.println(new Date() + "\t[SmartHealthCareService]\t" + this.getClass().getName() + ":\t" + new Exception().getStackTrace()[0].getMethodName());
         System.out.println(inPreList);
@@ -106,87 +110,87 @@ public class PrescriptionController {
         }
         return Result.setResult(PCOUNT_UPDATE_ERROR).data("prescriptionList", prescriptionList).data("drugBillList", drugBillList);
     }
-
-    /**
-     * 创建处方（多个）
-     * @param histories_id   病历id
-     * @param drug_idList    药品id列表
-     * @param drug_countList 药品数量列表
-     * @param usagesList     药品用法列表
-     * @return
-     */
-    @RequestMapping("/create_prescription_list")
-    public Result createPrescriptionList(@RequestParam("histories_id") String histories_id,
-                                         @RequestParam("drug_id_list") List<String> drug_idList,
-                                         @RequestParam("drug_count_list") List<Short> drug_countList,
-                                         @RequestParam("usages_list") List<String> usagesList) {
-        System.out.println(new Date() + "\t[SmartHealthCareService]\t" + this.getClass().getName() + ":\t" + new Exception().getStackTrace()[0].getMethodName());
-        int size = drug_idList.size();
-        List<Prescription> prescriptionList = new ArrayList<>();
-        List<DrugBill> drugBillList = new ArrayList<>();
-        for (int i = 0; i < size; i++) {
-            String drug_id = drug_idList.get(i);
-            int drug_count = drug_countList.get(i);
-            String usages = usagesList.get(i);
-            Drug drug = drugService.selectDrugById(drug_id);
-            if (drug == null) {
-                return Result.setResult(DRUG_NULL_ERROR);
-            }
-            Histories histories = historiesService.selectHistoriesById(histories_id);
-            if (histories == null) {
-                return Result.setResult(HISTORIES_NULL_ERROR);
-            }
-            Prescription prescription = prescriptionService.selectPrescription(histories_id, drug_id);
-            if (prescription != null) {
-                prescriptionList.add(prescription);
-                DrugBill drugBill = billService.selectDrugBillByPreId(prescription.getPrescription_id());
-                if (drugBill == null) {
-                    drugBillList.add(addDrugBill(prescription.getPrescription_id(), histories.getHistories_id(),
-                            histories.getUser_id(), histories.getUser_name(), drug.getDrug_id(), drug.getName(),
-                            drug.getPrice(), drug_count, histories.getCount(),prescription.getCreate_time()));
-                } else {
-                    drugBillList.add(drugBill);
-                }
-            } else {
-                prescription = new Prescription();
-                prescription.setHistories_id(histories.getHistories_id());
-                prescription.setDrug_id(drug.getDrug_id());
-                prescription.setDrug_name(drug.getName());
-                prescription.setDrug_count(drug_count);
-                prescription.setUsages(usages);
-                SimpleDateFormat fmt1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                fmt1.setTimeZone(TimeZone.getTimeZone("Asia/Shanghai"));
-                String date = fmt1.format(new Date());
-                prescription.setCreate_time(date);
-                System.out.println(prescription.getCreate_time());
-                prescription.setPrescription_id("pre" + histories_id.substring(3, 10) + date.substring(14, 16) + date.substring(17));
-                int k = prescriptionService.insertPrescription(prescription);
-                if (k > 0) {
-                    prescription = prescriptionService.selectPrescriptionById(prescription.getPrescription_id());
-                    prescriptionList.add(prescription);
-                    if (prescription != null) {
-                        DrugBill drugBill = billService.selectDrugBillByPreId(prescription.getPrescription_id());
-                        if (drugBill == null) {
-                            drugBillList.add(addDrugBill(prescription.getPrescription_id(), histories.getHistories_id(),
-                                    histories.getUser_id(), histories.getUser_name(), drug.getDrug_id(), drug.getName(),
-                                    drug.getPrice(), drug_count, histories.getCount(),prescription.getCreate_time()));
-                        } else {
-                            drugBillList.add(drugBill);
-                        }
-                    } else {
-                        prescriptionList.add(null);
-                    }
-                } else {
-                    prescriptionList.add(null);
-                }
-            }
-        }
-        int i = historiesService.updatePrescriptionCount(size, histories_id);
-        if (i > 0) {
-            return Result.ok().data("prescriptionList", prescriptionList).data("drugBillList", drugBillList);
-        }
-        return Result.setResult(PCOUNT_UPDATE_ERROR).data("prescriptionList", prescriptionList).data("drugBillList", drugBillList);
-    }
+//
+//    /**
+//     * 创建处方（多个）
+//     * @param histories_id   病历id
+//     * @param drug_idList    药品id列表
+//     * @param drug_countList 药品数量列表
+//     * @param usagesList     药品用法列表
+//     * @return
+//     */
+//    @RequestMapping("/create_prescription_list")
+//    public Result createPrescriptionList(@RequestParam("histories_id") String histories_id,
+//                                         @RequestParam("drug_id_list") List<String> drug_idList,
+//                                         @RequestParam("drug_count_list") List<Short> drug_countList,
+//                                         @RequestParam("usages_list") List<String> usagesList) {
+//        System.out.println(new Date() + "\t[SmartHealthCareService]\t" + this.getClass().getName() + ":\t" + new Exception().getStackTrace()[0].getMethodName());
+//        int size = drug_idList.size();
+//        List<Prescription> prescriptionList = new ArrayList<>();
+//        List<DrugBill> drugBillList = new ArrayList<>();
+//        for (int i = 0; i < size; i++) {
+//            String drug_id = drug_idList.get(i);
+//            int drug_count = drug_countList.get(i);
+//            String usages = usagesList.get(i);
+//            Drug drug = drugService.selectDrugById(drug_id);
+//            if (drug == null) {
+//                return Result.setResult(DRUG_NULL_ERROR);
+//            }
+//            Histories histories = historiesService.selectHistoriesById(histories_id);
+//            if (histories == null) {
+//                return Result.setResult(HISTORIES_NULL_ERROR);
+//            }
+//            Prescription prescription = prescriptionService.selectPrescription(histories_id, drug_id);
+//            if (prescription != null) {
+//                prescriptionList.add(prescription);
+//                DrugBill drugBill = billService.selectDrugBillByPreId(prescription.getPrescription_id());
+//                if (drugBill == null) {
+//                    drugBillList.add(addDrugBill(prescription.getPrescription_id(), histories.getHistories_id(),
+//                            histories.getUser_id(), histories.getUser_name(), drug.getDrug_id(), drug.getName(),
+//                            drug.getPrice(), drug_count, histories.getCount(),prescription.getCreate_time()));
+//                } else {
+//                    drugBillList.add(drugBill);
+//                }
+//            } else {
+//                prescription = new Prescription();
+//                prescription.setHistories_id(histories.getHistories_id());
+//                prescription.setDrug_id(drug.getDrug_id());
+//                prescription.setDrug_name(drug.getName());
+//                prescription.setDrug_count(drug_count);
+//                prescription.setUsages(usages);
+//                SimpleDateFormat fmt1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//                fmt1.setTimeZone(TimeZone.getTimeZone("Asia/Shanghai"));
+//                String date = fmt1.format(new Date());
+//                prescription.setCreate_time(date);
+//                System.out.println(prescription.getCreate_time());
+//                prescription.setPrescription_id("pre" + histories_id.substring(3, 10) + date.substring(14, 16) + date.substring(17));
+//                int k = prescriptionService.insertPrescription(prescription);
+//                if (k > 0) {
+//                    prescription = prescriptionService.selectPrescriptionById(prescription.getPrescription_id());
+//                    prescriptionList.add(prescription);
+//                    if (prescription != null) {
+//                        DrugBill drugBill = billService.selectDrugBillByPreId(prescription.getPrescription_id());
+//                        if (drugBill == null) {
+//                            drugBillList.add(addDrugBill(prescription.getPrescription_id(), histories.getHistories_id(),
+//                                    histories.getUser_id(), histories.getUser_name(), drug.getDrug_id(), drug.getName(),
+//                                    drug.getPrice(), drug_count, histories.getCount(),prescription.getCreate_time()));
+//                        } else {
+//                            drugBillList.add(drugBill);
+//                        }
+//                    } else {
+//                        prescriptionList.add(null);
+//                    }
+//                } else {
+//                    prescriptionList.add(null);
+//                }
+//            }
+//        }
+//        int i = historiesService.updatePrescriptionCount(size, histories_id);
+//        if (i > 0) {
+//            return Result.ok().data("prescriptionList", prescriptionList).data("drugBillList", drugBillList);
+//        }
+//        return Result.setResult(PCOUNT_UPDATE_ERROR).data("prescriptionList", prescriptionList).data("drugBillList", drugBillList);
+//    }
 
     /**
      * 获取处方信息

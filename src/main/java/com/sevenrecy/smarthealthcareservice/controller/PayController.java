@@ -36,6 +36,7 @@ public class PayController {
                               @RequestParam("balance") double balance) {
         System.out.println(new Date() + "\t[SmartHealthCareService]\t" +  this.getClass().getName() + ":\t" + new Exception().getStackTrace()[0].getMethodName());
         int i = userService.updateBalance(user_id, balance);
+        System.out.println(i);
         if (i==1) {
             User user = userService.selectSysUserById(user_id);
             return Result.ok().message("预交费成功").data("user", user);
