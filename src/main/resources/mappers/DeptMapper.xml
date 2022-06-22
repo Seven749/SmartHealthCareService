@@ -7,7 +7,10 @@
         SELECT * FROM dept ORDER BY dept_id
     </select>
     
-    <select id="selectDept" parameterType="int" resultType="Dept">
-        SELECT * FROM dept WHERE dept_id=#{dept_id}
+    <select id="selectDept" parameterType="String" resultType="Dept">
+        SELECT * FROM dept WHERE name=#{dept_name}
+    </select>
+    <select id="selectDeptById" parameterType="int" resultType="Dept">
+        SELECT * FROM dept WHERE detp_id=#{dept_id}
     </select>
 </mapper>

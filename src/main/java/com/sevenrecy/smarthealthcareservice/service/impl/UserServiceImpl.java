@@ -46,4 +46,9 @@ public class UserServiceImpl implements UserService {
     public int updateBalance(int user_id, double balance) {
         return userDao.updateBalance(user_id, balance);
     }
+
+    @Override
+    public int updateCount(int user_id) {
+        return userDao.updateCount(user_id);
+    }
 }

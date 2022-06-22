@@ -42,16 +42,16 @@ public class RegistrationController {
      * 挂号时通过此接口进行挂号，并返回挂号单信息
      * @param user_name 用户姓名
      * @param IDCard 用户身份证
-     * @param dept_id 挂号科室id
-     * @param doc_id 挂号医生id
+     * @param dept_name 挂号科室id
+     * @param doc_name 挂号医生姓名
      * @param time 预约时间
      * @return
      */
     @RequestMapping("/create_registration")
     public Result createRegistration(@RequestParam("user_name") String user_name,
                                      @RequestParam("IDCard") String IDCard,
-                                     @RequestParam("dept_id") int dept_id,
-                                     @RequestParam("doc_id") String doc_id,
+                                     @RequestParam("dept_name") String dept_name,
+                                     @RequestParam("doc_name") String doc_name,
                                      @RequestParam("date") String date,
                                      @RequestParam("time") String time) {
         System.out.println(new Date() + "\t[SmartHealthCareService]\t" +  this.getClass().getName() + ":\t" + new Exception().getStackTrace()[0].getMethodName());
@@ -79,16 +79,17 @@ public class RegistrationController {
             user = userService.selectSysUserByIDCard(IDCard);
         }
         // 用户存在
-        Dept dept = deptService.selectDept(dept_id);
+        Dept dept = deptService.selectDept(dept_name);
         if (dept==null) {
             // 科室不存在
             return Result.setResult(DEPT_NULL_ERROR);
         }
-        Doctor doctor = doctorService.selectDoctorById(doc_id);
+        Doctor doctor = doctorService.selectDoctorByDeptAndDoc(dept.getDept_id(),doc_name);
         if (doctor==null) {
             // 医生不存在
             return Result.setResult(DOCTOR_NULL_ERROR);
         }
+        String doc_id = doctor.getDoc_id();
         Registration registration = registrationService.selectRegistration(doc_id, date, time);
         if (registration!=null) {
             // 时间已占用
@@ -121,7 +122,8 @@ public class RegistrationController {
         int i = registrationService.insertRegistration(registration);
         if (i>0) {
             registration = registrationService.selectRegistration(doc_id, date, time);
-            return Result.ok().data("registration", registration);
+            int k = userService.updateCount(user.getUser_id());
+            if (k==1) return Result.ok().data("registration", registration);
         }
         return Result.setResult(DATABASE_ERROR);
     }

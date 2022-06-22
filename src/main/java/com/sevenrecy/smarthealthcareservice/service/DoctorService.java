@@ -20,12 +20,20 @@ public interface DoctorService {
      * @param doc_id
      * @return
      */
-    Doctor selectDoctorById(@RequestParam("doc_id") String doc_id);
+    Doctor selectDoctorById(@Param("doc_id") String doc_id);
 
     /**
      * 通过科室id获取医生列表
      * @param dept_id 科室id
      * @return
      */
-    List<Doctor> selectDoctorByDept(@RequestParam("dept_id") int dept_id);
+    List<Doctor> selectDoctorByDept(@Param("dept_id") int dept_id);
+
+    /**
+     * 通过科室名称，医生姓名查询医生信息
+     * @param dept_id 科室id
+     * @param doc_name 医生姓名
+     * @return
+     */
+    Doctor selectDoctorByDeptAndDoc(@Param("dept_id") int dept_id, @Param("doc_name") String doc_name);
 }

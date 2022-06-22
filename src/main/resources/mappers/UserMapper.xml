@@ -32,4 +32,8 @@
     <update id="updateBalance">
         UPDATE user SET balance=balance+#{balance} WHERE user_id=#{user_id}
     </update>
+
+    <update id="updateCount">
+        UPDATE user SET count=count+1 WHERE user_id=#{user_id}
+    </update>
 </mapper>

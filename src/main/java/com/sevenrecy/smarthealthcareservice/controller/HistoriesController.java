@@ -76,7 +76,7 @@ public class HistoriesController {
             // 医生不存在
             return Result.setResult(DOCTOR_NULL_ERROR);
         }
-        Dept dept = deptService.selectDept(dept_id);
+        Dept dept = deptService.selectDeptById(dept_id);
         if (dept==null) {
             // 科室不存在
             return Result.setResult(DEPT_NULL_ERROR);

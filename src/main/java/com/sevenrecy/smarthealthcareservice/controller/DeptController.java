@@ -34,9 +34,19 @@ public class DeptController {
     }
 
     @RequestMapping("/get_dept")
+    public Result getDept(@RequestParam("dept_name") String dept_name) {
+        System.out.println(new Date() + "\t[SmartHealthCareService]\t" +  this.getClass().getName() + ":\t" + new Exception().getStackTrace()[0].getMethodName());
+        Dept dept = deptService.selectDept(dept_name);
+        if (dept!=null) {
+            return Result.ok().data("dept", dept);
+        }
+        return Result.setResult(DEPT_NULL_ERROR);
+    }
+
+    @RequestMapping("/get_dept_by_id")
     public Result getDept(@RequestParam("dept_id") int dept_id) {
         System.out.println(new Date() + "\t[SmartHealthCareService]\t" +  this.getClass().getName() + ":\t" + new Exception().getStackTrace()[0].getMethodName());
-        Dept dept = deptService.selectDept(dept_id);
+        Dept dept = deptService.selectDeptById(dept_id);
         if (dept!=null) {
             return Result.ok().data("dept", dept);
         }

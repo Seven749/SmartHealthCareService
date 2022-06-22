@@ -19,7 +19,12 @@ public class DeptServiceImpl implements DeptService {
     }
 
     @Override
-    public Dept selectDept(int dept_id) {
-        return deptDao.selectDept(dept_id);
+    public Dept selectDept(String dept_name) {
+        return deptDao.selectDept(dept_name);
+    }
+
+    @Override
+    public Dept selectDeptById(int dept_id) {
+        return deptDao.selectDeptById(dept_id);
     }
 }

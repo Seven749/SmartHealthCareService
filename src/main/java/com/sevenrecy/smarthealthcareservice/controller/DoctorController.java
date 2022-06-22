@@ -1,7 +1,9 @@
 package com.sevenrecy.smarthealthcareservice.controller;
 
+import com.sevenrecy.smarthealthcareservice.entity.Dept;
 import com.sevenrecy.smarthealthcareservice.entity.Doctor;
 import com.sevenrecy.smarthealthcareservice.json.Result;
+import com.sevenrecy.smarthealthcareservice.service.DeptService;
 import com.sevenrecy.smarthealthcareservice.service.DoctorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -23,6 +25,8 @@ import static com.sevenrecy.smarthealthcareservice.json.ResultCodeEnum.*;
 public class DoctorController {
     @Autowired
     DoctorService doctorService;
+    @Autowired
+    DeptService deptService;
 
     /**
      * 医护登录接口
@@ -61,13 +65,33 @@ public class DoctorController {
      * @param dept_id 科室
      * @return
      */
-    @RequestMapping("get_doc_dept_list")
-    public Result getDoctorDeptList(@RequestParam("dept_id") int dept_id) {
+    @RequestMapping("get_doc_dept_list_by_id")
+    public Result getDoctorDeptListById(@RequestParam("dept_id") int dept_id) {
         System.out.println(new Date() + "\t[SmartHealthCareService]\t" +  this.getClass().getName() + ":\t" + new Exception().getStackTrace()[0].getMethodName());
         List<Doctor> doctorList = doctorService.selectDoctorByDept(dept_id);
         if (doctorList!=null&&doctorList.size()>0) {
             return Result.ok().data("doctorList", doctorList);
         }
         return Result.setResult(DOCTOR_NULL_ERROR);
+    }
+
+
+    /**
+     * 获取科室医生列表
+     * @param dept_name 科室
+     * @return
+     */
+    @RequestMapping("/get_doc_dept_list")
+    public Result getDoctorDeptList(@RequestParam("dept_name") String dept_name) {
+        System.out.println(new Date() + "\t[SmartHealthCareService]\t" +  this.getClass().getName() + ":\t" + new Exception().getStackTrace()[0].getMethodName());
+        Dept dept = deptService.selectDept(dept_name);
+        if (dept!=null) {
+            List<Doctor> doctorList = doctorService.selectDoctorByDept(dept.getDept_id());
+            if (doctorList!=null&&doctorList.size()>0) {
+                return Result.ok().data("doctorList", doctorList);
+            }
+            return Result.setResult(DOCTOR_NULL_ERROR);
+        }
+        return Result.setResult(DEPT_NULL_ERROR);
     }
 }

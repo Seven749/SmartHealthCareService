@@ -12,9 +12,16 @@ public interface DeptService {
     List<Dept> selectDeptList();
 
     /**
+     * 获取对应名称的科室信息
+     * @param dept_name 科室name
+     * @return
+     */
+    Dept selectDept(String dept_name);
+
+    /**
      * 获取对应id的科室信息
      * @param dept_id 科室id
      * @return
      */
-    Dept selectDept(int dept_id);
+    Dept selectDeptById(int dept_id);
 }

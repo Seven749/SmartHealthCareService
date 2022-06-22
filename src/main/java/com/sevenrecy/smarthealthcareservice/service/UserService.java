@@ -56,4 +56,11 @@ public interface UserService {
      * @return
      */
     int updateBalance(@Param("user_id") int user_id, @Param("balance") double balance);
+
+    /**
+     * 更新用户就诊次数
+     * @param user_id 用户id
+     * @return
+     */
+    int updateCount(@Param("user_id") int user_id);
 }

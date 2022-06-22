@@ -13,8 +13,15 @@ public interface DeptDao {
 
     /**
      * 获取对应id的科室信息
+     * @param dept_name 科室id
+     * @return
+     */
+    Dept selectDept(String dept_name);
+
+    /**
+     * 获取对应id的科室信息
      * @param dept_id 科室id
      * @return
      */
-    Dept selectDept(int dept_id);
+    Dept selectDeptById(int dept_id);
 }

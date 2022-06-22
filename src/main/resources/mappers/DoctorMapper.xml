@@ -14,4 +14,8 @@
     <select id="selectDoctorByDept" parameterType="int" resultType="Doctor">
         SELECT * FROM doctor WHERE dept_id=#{dept_id} ORDER BY doc_id
     </select>
+
+    <select id="selectDoctorByDeptAndDoc" resultType="Doctor">
+        SELECT * FROM doctor WHERE name=#{doc_name} AND dept_id=#{dept_id}
+    </select>
 </mapper>

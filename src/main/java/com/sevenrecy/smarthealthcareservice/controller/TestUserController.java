@@ -3,6 +3,8 @@ package com.sevenrecy.smarthealthcareservice.controller;
 import com.sevenrecy.smarthealthcareservice.entity.*;
 import com.sevenrecy.smarthealthcareservice.entity.input.InPre;
 import com.sevenrecy.smarthealthcareservice.json.Result;
+import com.sevenrecy.smarthealthcareservice.service.DoctorService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.text.SimpleDateFormat;
@@ -14,6 +16,15 @@ import static com.sevenrecy.smarthealthcareservice.json.ResultCodeEnum.*;
 //@RequestMapping("/json")
 @CrossOrigin(origins = "http://localhost:63342",maxAge = 3600)
 public class TestUserController {
+
+    @Autowired
+    DoctorService doctorService;
+
+    @RequestMapping("/test_get_doc")
+    public Result testGetDoctor(@RequestParam("doc_name") String doc_name,
+                                @RequestParam("dept_id") int dept_id) {
+        return Result.ok().data("doctor", doctorService.selectDoctorByDeptAndDoc(dept_id, doc_name));
+    }
 
     /**
      * !!!
