@@ -1,15 +1,13 @@
-package com.sevenrecy.smarthealthcareservice.entity;
+package com.sevenrecy.smarthealthcareservice.entity.out;
 
 import lombok.Data;
 
 @Data
-public class Doctor {
+public class OutDoctor {
     private String doc_id;
     private String name;
-    private String pwd;
     private String avatar;
     private int dept_id;
     private String dept_name;
-    private String create_time;
     private double price;
 }

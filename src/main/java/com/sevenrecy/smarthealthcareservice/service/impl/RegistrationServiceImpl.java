@@ -2,6 +2,7 @@ package com.sevenrecy.smarthealthcareservice.service.impl;
 
 import com.sevenrecy.smarthealthcareservice.dao.RegistrationDao;
 import com.sevenrecy.smarthealthcareservice.entity.Registration;
+import com.sevenrecy.smarthealthcareservice.entity.out.OutRegistration;
 import com.sevenrecy.smarthealthcareservice.service.RegistrationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,4 +34,18 @@ public class RegistrationServiceImpl implements RegistrationService {
         return registrationDao.selectNumByTime(doc_id, date, time);
     }
 
+    @Override
+    public List<OutRegistration> selectRegistrationOfDoctor(String doc_id, String date) {
+        return registrationDao.selectRegistrationOfDoctor(doc_id, date);
+    }
+
+    @Override
+    public int updateSkipNum(String doc_id, String date, int num) {
+        return registrationDao.updateSkipNum(doc_id, date, num);
+    }
+
+    @Override
+    public int updateConfirmNum(String doc_id, String date, int num) {
+        return registrationDao.updateConfirmNum(doc_id, date, num);
+    }
 }

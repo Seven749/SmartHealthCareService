@@ -1,6 +1,7 @@
 package com.sevenrecy.smarthealthcareservice.dao;
 
 import com.sevenrecy.smarthealthcareservice.entity.Registration;
+import com.sevenrecy.smarthealthcareservice.entity.out.OutRegistration;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -36,4 +37,30 @@ public interface RegistrationDao {
      * @return
      */
     int selectNumByTime(@Param("doc_id") String doc_id, @Param("date") String date, @Param("time") String time);
+
+    /**
+     * 获取医生今日已经被预约的信息
+     * @param doc_id
+     * @param date
+     * @return
+     */
+    List<OutRegistration> selectRegistrationOfDoctor(@Param("doc_id") String doc_id, @Param("date") String date);
+
+    /**
+     * 跳号
+     * @param doc_id 医生id
+     * @param date 日期
+     * @param num 挂号号
+     * @return
+     */
+    int updateSkipNum(@Param("doc_id") String doc_id, @Param("date") String date, @Param("num") int num);
+
+    /**
+     * 确认号
+     * @param doc_id 医生id
+     * @param date 日期
+     * @param num 挂号号
+     * @return
+     */
+    int updateConfirmNum(@Param("doc_id") String doc_id, @Param("date") String date, @Param("num") int num);
 }

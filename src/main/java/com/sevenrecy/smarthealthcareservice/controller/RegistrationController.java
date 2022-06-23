@@ -4,6 +4,7 @@ import com.sevenrecy.smarthealthcareservice.entity.Dept;
 import com.sevenrecy.smarthealthcareservice.entity.Doctor;
 import com.sevenrecy.smarthealthcareservice.entity.Registration;
 import com.sevenrecy.smarthealthcareservice.entity.User;
+import com.sevenrecy.smarthealthcareservice.entity.out.OutRegistration;
 import com.sevenrecy.smarthealthcareservice.json.Result;
 import com.sevenrecy.smarthealthcareservice.service.DeptService;
 import com.sevenrecy.smarthealthcareservice.service.DoctorService;
@@ -107,6 +108,7 @@ public class RegistrationController {
         registration = new Registration();
         registration.setUser_id(user.getUser_id());
         registration.setUser_name(user.getName());
+        registration.setUser_IDCard(user.getIDCard());
         registration.setDoc_id(doctor.getDoc_id());
         registration.setDoc_name(doctor.getName());
         registration.setDept_id(dept.getDept_id());
@@ -160,5 +162,49 @@ public class RegistrationController {
             return Result.ok().data("num", num);
         }
         return Result.setResult(REGISTRATION_NULL_ERROR);
+    }
+
+    @RequestMapping("/get_registration_of_doctor")
+    public Result getRegistrationOfDoctor(@RequestParam("doc_id") String doc_id) {
+//        SimpleDateFormat fmt1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//        fmt1.setTimeZone(TimeZone.getTimeZone("Asia/Shanghai"));
+//        String date = fmt1.format(new Date());
+        String date = "2022-06-09";
+        List<OutRegistration> outRegistrationList = registrationService.selectRegistrationOfDoctor(doc_id, date);
+        if (outRegistrationList!=null&&outRegistrationList.size()>0) {
+            return Result.ok().data("RegistrationList", outRegistrationList);
+        }
+        return Result.setResult(REGISTRATION_NULL_ERROR);
+    }
+
+    @RequestMapping("/registration_skip_num")
+    public Result skipNum(@RequestParam("doc_id") String doc_id,
+                          @RequestParam("num") int num) {
+        //        SimpleDateFormat fmt1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//        fmt1.setTimeZone(TimeZone.getTimeZone("Asia/Shanghai"));
+//        String date = fmt1.format(new Date());
+        String date = "2022-06-09";
+        int i = registrationService.updateSkipNum(doc_id, date, num);
+        if (i==1) {
+            List<OutRegistration> outRegistrationList = registrationService.selectRegistrationOfDoctor(doc_id, date);
+            if (outRegistrationList!=null&&outRegistrationList.size()>0) {
+                return Result.ok().message(num+"号：跳号成功").data("RegistrationList", outRegistrationList);
+            }
+        }
+        return Result.setResult(DATABASE_ERROR);
+    }
+
+    @RequestMapping("/registration_confirm_num")
+    public Result confirmNum(@RequestParam("doc_id") String doc_id,
+                          @RequestParam("num") int num) {
+        //        SimpleDateFormat fmt1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//        fmt1.setTimeZone(TimeZone.getTimeZone("Asia/Shanghai"));
+//        String date = fmt1.format(new Date());
+        String date = "2022-06-09";
+        int i = registrationService.updateConfirmNum(doc_id, date, num);
+        if (i==1) {
+            return Result.ok().message(num+"号：确认成功");
+        }
+        return Result.setResult(DATABASE_ERROR);
     }
 }
