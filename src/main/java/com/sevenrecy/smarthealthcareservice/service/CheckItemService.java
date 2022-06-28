@@ -25,7 +25,13 @@ public interface CheckItemService {
      * 获取检查单列表
      * @return
      */
-    List<CheckItem> selectCheckItemList();
+    List<CheckItem> selectCheckItemList(String histories_id);
+
+    /**
+     * 获取检查单列表
+     * @return
+     */
+    List<CheckItem> selectCheckItemListByUserId(int user_id);
 
     /**
      * 查询是否已有检查单

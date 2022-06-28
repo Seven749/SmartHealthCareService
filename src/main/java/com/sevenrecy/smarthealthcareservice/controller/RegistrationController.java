@@ -4,6 +4,7 @@ import com.sevenrecy.smarthealthcareservice.entity.Dept;
 import com.sevenrecy.smarthealthcareservice.entity.Doctor;
 import com.sevenrecy.smarthealthcareservice.entity.Registration;
 import com.sevenrecy.smarthealthcareservice.entity.User;
+import com.sevenrecy.smarthealthcareservice.entity.out.OutDoctor;
 import com.sevenrecy.smarthealthcareservice.entity.out.OutRegistration;
 import com.sevenrecy.smarthealthcareservice.json.Result;
 import com.sevenrecy.smarthealthcareservice.service.DeptService;
@@ -85,7 +86,7 @@ public class RegistrationController {
             // 科室不存在
             return Result.setResult(DEPT_NULL_ERROR);
         }
-        Doctor doctor = doctorService.selectDoctorByDeptAndDoc(dept.getDept_id(),doc_name);
+        OutDoctor doctor = doctorService.selectDoctorByDeptAndDoc(dept.getDept_id(),doc_name);
         if (doctor==null) {
             // 医生不存在
             return Result.setResult(DOCTOR_NULL_ERROR);
@@ -118,7 +119,7 @@ public class RegistrationController {
         registration.setTime(time);
         registration.setRecord_id(doc_id+date.substring(0,4)+date.substring(5,7)+date.substring(8,10)+num);
         registration.setPrice(doctor.getPrice());
-        SimpleDateFormat fmt1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat fmt1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss:sss");
         fmt1.setTimeZone(TimeZone.getTimeZone("Asia/Shanghai"));
         registration.setCreate_time(fmt1.format(new Date()));
         int i = registrationService.insertRegistration(registration);
@@ -166,7 +167,7 @@ public class RegistrationController {
 
     @RequestMapping("/get_registration_of_doctor")
     public Result getRegistrationOfDoctor(@RequestParam("doc_id") String doc_id) {
-//        SimpleDateFormat fmt1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//        SimpleDateFormat fmt1 = new SimpleDateFormat("yyyy-MM-dd");
 //        fmt1.setTimeZone(TimeZone.getTimeZone("Asia/Shanghai"));
 //        String date = fmt1.format(new Date());
         String date = "2022-06-09";
@@ -180,7 +181,7 @@ public class RegistrationController {
     @RequestMapping("/registration_skip_num")
     public Result skipNum(@RequestParam("doc_id") String doc_id,
                           @RequestParam("num") int num) {
-        //        SimpleDateFormat fmt1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        //        SimpleDateFormat fmt1 = new SimpleDateFormat("yyyy-MM-dd");
 //        fmt1.setTimeZone(TimeZone.getTimeZone("Asia/Shanghai"));
 //        String date = fmt1.format(new Date());
         String date = "2022-06-09";
@@ -197,7 +198,7 @@ public class RegistrationController {
     @RequestMapping("/registration_confirm_num")
     public Result confirmNum(@RequestParam("doc_id") String doc_id,
                           @RequestParam("num") int num) {
-        //        SimpleDateFormat fmt1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        //        SimpleDateFormat fmt1 = new SimpleDateFormat("yyyy-MM-dd");
 //        fmt1.setTimeZone(TimeZone.getTimeZone("Asia/Shanghai"));
 //        String date = fmt1.format(new Date());
         String date = "2022-06-09";

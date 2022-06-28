@@ -24,12 +24,17 @@ public class CheckItemServiceImpl implements CheckItemService {
     }
 
     @Override
-    public List<CheckItem> selectCheckItemList() {
-        return checkItemDao.selectCheckItemList();
+    public List<CheckItem> selectCheckItemList(String histories_id) {
+        return checkItemDao.selectCheckItemList(histories_id);
     }
 
     @Override
     public CheckItem selectCheckItem(String histories_id, String item_id) {
         return checkItemDao.selectCheckItem(histories_id, item_id);
+    }
+
+    @Override
+    public List<CheckItem> selectCheckItemListByUserId(int user_id) {
+        return selectCheckItemListByUserId(user_id);
     }
 }

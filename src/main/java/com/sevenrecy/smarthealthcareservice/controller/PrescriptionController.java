@@ -77,12 +77,12 @@ public class PrescriptionController {
                 prescription.setDrug_name(drug.getName());
                 prescription.setDrug_count(drug_count);
                 prescription.setUsages(usages);
-                SimpleDateFormat fmt1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                SimpleDateFormat fmt1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss:sss");
                 fmt1.setTimeZone(TimeZone.getTimeZone("Asia/Shanghai"));
                 String date = fmt1.format(new Date());
                 prescription.setCreate_time(date);
                 System.out.println(prescription.getCreate_time());
-                prescription.setPrescription_id("pre" + histories_id.substring(3, 10) + date.substring(14, 16) + date.substring(17));
+                prescription.setPrescription_id("pre" + histories_id.substring(3, 11) + date.substring(14, 16) + date.substring(17,19)+date.substring(20)+i);
                 int k = prescriptionService.insertPrescription(prescription);
                 if (k > 0) {
                     prescription = prescriptionService.selectPrescriptionById(prescription.getPrescription_id());

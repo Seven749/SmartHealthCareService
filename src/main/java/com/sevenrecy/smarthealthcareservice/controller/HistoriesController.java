@@ -1,6 +1,7 @@
 package com.sevenrecy.smarthealthcareservice.controller;
 
 import com.sevenrecy.smarthealthcareservice.entity.*;
+import com.sevenrecy.smarthealthcareservice.entity.out.OutDoctor;
 import com.sevenrecy.smarthealthcareservice.json.Result;
 import com.sevenrecy.smarthealthcareservice.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,7 +44,7 @@ public class HistoriesController {
      * @param user_id 用户id
      * @param doc_id 医生id
      * @param dept_id 科室id
-     * @param allergies 过敏史
+     * @param complaints 主诉
      * @param present 现状史
      * @param past 既往史
      * @param physical_exam 体格检查
@@ -56,7 +57,7 @@ public class HistoriesController {
     public Result createHistories(@RequestParam("user_id") int user_id,
                                   @RequestParam("doc_id") String doc_id,
                                   @RequestParam("dept_id") int dept_id,
-                                  @RequestParam("allergies") String allergies,
+                                  @RequestParam("complaints") String complaints,
                                   @RequestParam("present") String present,
                                   @RequestParam("past") String past,
                                   @RequestParam("physical_exam") String physical_exam,
@@ -71,7 +72,7 @@ public class HistoriesController {
             // 用户不存在
             return Result.setResult(USER_NULL_ERROR);
         }
-        Doctor doctor = doctorService.selectDoctorById(doc_id);
+        OutDoctor doctor = doctorService.selectDoctorById(doc_id);
         if (doctor==null) {
             // 医生不存在
             return Result.setResult(DOCTOR_NULL_ERROR);
@@ -89,7 +90,7 @@ public class HistoriesController {
         histories.setDoc_name(doctor.getName());
         histories.setDept_id(dept.getDept_id());
         histories.setDept_name(dept.getName());
-        histories.setAllergies(allergies);
+        histories.setComplaints(complaints);
         histories.setPresent(present);
         histories.setPast(past);
         histories.setPhysical_exam(physical_exam);
@@ -98,7 +99,7 @@ public class HistoriesController {
         histories.setAdvice(advice);
         histories.setPrescription_count(0);
         histories.setCheck_item_count(0);
-        SimpleDateFormat fmt1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat fmt1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss:sss");
         fmt1.setTimeZone(TimeZone.getTimeZone("Asia/Shanghai"));
         histories.setCreate_time(fmt1.format(new Date()));
         String time = histories.getCreate_time();
@@ -139,7 +140,7 @@ public class HistoriesController {
             }
         }
         if (c_count!=0) {
-            List<CheckItem> c_list = checkItemService.selectCheckItemList();
+            List<CheckItem> c_list = checkItemService.selectCheckItemList(histories_id);
             if (c_list!=null&&c_list.size()==c_count) {
                 histories.setCheckItemList(c_list);
             } else {

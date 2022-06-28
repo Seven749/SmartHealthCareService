@@ -30,13 +30,13 @@ public class BillController {
         List<ItemBill> itemBillListNo = new ArrayList<>();
         if (itemBillList==null||itemBillList.size()==0) {
             itemBillList = null;
-        }
-        assert itemBillList != null;
-        for (ItemBill itemBill: itemBillList) {
-            if (itemBill.getIsPay().equals("Yes")) {
-                itemBillListYes.add(itemBill);
-            } else {
-                itemBillListNo.add(itemBill);
+        } else {
+            for (ItemBill itemBill: itemBillList) {
+                if (itemBill.getIsPay().equals("Yes")) {
+                    itemBillListYes.add(itemBill);
+                } else {
+                    itemBillListNo.add(itemBill);
+                }
             }
         }
         List<DrugBill> drugBillList = billService.selectDrugBillList(user_id);
@@ -44,13 +44,13 @@ public class BillController {
         List<DrugBill> drugBillListNo = new ArrayList<>();
         if (drugBillList==null||drugBillList.size()==0) {
             drugBillList = null;
-        }
-        assert drugBillList != null;
-        for (DrugBill drugBill: drugBillList) {
-            if (drugBill.getIsPay().equals("Yes")) {
-                drugBillListYes.add(drugBill);
-            } else {
-                drugBillListNo.add(drugBill);
+        } else {
+            for (DrugBill drugBill: drugBillList) {
+                if (drugBill.getIsPay().equals("Yes")) {
+                    drugBillListYes.add(drugBill);
+                } else {
+                    drugBillListNo.add(drugBill);
+                }
             }
         }
         return Result.ok().data("itemBillListYes", itemBillListYes).data("itemBillListNo", itemBillListNo)
@@ -62,14 +62,35 @@ public class BillController {
                               @RequestParam("count") int count) {
         System.out.println(new Date() + "\t[SmartHealthCareService]\t" +  this.getClass().getName() + ":\t" + new Exception().getStackTrace()[0].getMethodName());
         List<ItemBill> itemBillList = billService.selectItemBillListByCount(user_id, count);
+        List<ItemBill> itemBillListYes = new ArrayList<>();
+        List<ItemBill> itemBillListNo = new ArrayList<>();
         if (itemBillList==null||itemBillList.size()==0) {
             itemBillList = null;
+        } else {
+            for (ItemBill itemBill: itemBillList) {
+                if (itemBill.getIsPay().equals("Yes")) {
+                    itemBillListYes.add(itemBill);
+                } else {
+                    itemBillListNo.add(itemBill);
+                }
+            }
         }
         List<DrugBill> drugBillList = billService.selectDrugBillListByCount(user_id, count);
+        List<DrugBill> drugBillListYes = new ArrayList<>();
+        List<DrugBill> drugBillListNo = new ArrayList<>();
         if (drugBillList==null||drugBillList.size()==0) {
             drugBillList = null;
+        } else {
+            for (DrugBill drugBill: drugBillList) {
+                if (drugBill.getIsPay().equals("Yes")) {
+                    drugBillListYes.add(drugBill);
+                } else {
+                    drugBillListNo.add(drugBill);
+                }
+            }
         }
-        return Result.ok().data("itemBillList", itemBillList).data("drugBillList", drugBillList);
+        return Result.ok().data("itemBillListYes", itemBillListYes).data("itemBillListNo", itemBillListNo)
+                .data("drugBillListYes", drugBillListYes).data("drugBillListNo", drugBillListNo);
     }
 
 }

@@ -2,6 +2,7 @@ package com.sevenrecy.smarthealthcareservice.controller;
 
 import com.sevenrecy.smarthealthcareservice.entity.Dept;
 import com.sevenrecy.smarthealthcareservice.entity.Doctor;
+import com.sevenrecy.smarthealthcareservice.entity.out.OutDoctor;
 import com.sevenrecy.smarthealthcareservice.json.Result;
 import com.sevenrecy.smarthealthcareservice.service.DeptService;
 import com.sevenrecy.smarthealthcareservice.service.DoctorService;
@@ -38,7 +39,7 @@ public class DoctorController {
     public Result docLogin(@RequestParam("doc_id") String doc_id,
                            @RequestParam("pwd") String pwd) {
         System.out.println(new Date() + "\t[SmartHealthCareService]\t" +  this.getClass().getName() + ":\t" + new Exception().getStackTrace()[0].getMethodName());
-        Doctor doctor = doctorService.selectDoctor(doc_id, pwd);
+        OutDoctor doctor = doctorService.selectDoctor(doc_id, pwd);
         if (doctor!=null) {
             return Result.ok().data("loginDoctor", doctor);
         }
@@ -53,7 +54,7 @@ public class DoctorController {
     @RequestMapping("/get_doc")
     public Result getDoctor(@RequestParam("doc_id") String doc_id) {
         System.out.println(new Date() + "\t[SmartHealthCareService]\t" +  this.getClass().getName() + ":\t" + new Exception().getStackTrace()[0].getMethodName());
-        Doctor doctor = doctorService.selectDoctorById(doc_id);
+        OutDoctor doctor = doctorService.selectDoctorById(doc_id);
         if (doctor!=null) {
             return Result.ok().data("doctor", doctor);
         }
@@ -68,7 +69,7 @@ public class DoctorController {
     @RequestMapping("get_doc_dept_list_by_id")
     public Result getDoctorDeptListById(@RequestParam("dept_id") int dept_id) {
         System.out.println(new Date() + "\t[SmartHealthCareService]\t" +  this.getClass().getName() + ":\t" + new Exception().getStackTrace()[0].getMethodName());
-        List<Doctor> doctorList = doctorService.selectDoctorByDept(dept_id);
+        List<OutDoctor> doctorList = doctorService.selectDoctorByDept(dept_id);
         if (doctorList!=null&&doctorList.size()>0) {
             return Result.ok().data("doctorList", doctorList);
         }
@@ -86,7 +87,7 @@ public class DoctorController {
         System.out.println(new Date() + "\t[SmartHealthCareService]\t" +  this.getClass().getName() + ":\t" + new Exception().getStackTrace()[0].getMethodName());
         Dept dept = deptService.selectDept(dept_name);
         if (dept!=null) {
-            List<Doctor> doctorList = doctorService.selectDoctorByDept(dept.getDept_id());
+            List<OutDoctor> doctorList = doctorService.selectDoctorByDept(dept.getDept_id());
             if (doctorList!=null&&doctorList.size()>0) {
                 return Result.ok().data("doctorList", doctorList);
             }

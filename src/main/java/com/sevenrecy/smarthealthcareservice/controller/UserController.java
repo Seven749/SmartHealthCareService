@@ -1,6 +1,7 @@
 package com.sevenrecy.smarthealthcareservice.controller;
 
 import com.sevenrecy.smarthealthcareservice.entity.User;
+import com.sevenrecy.smarthealthcareservice.entity.out.OutUser;
 import com.sevenrecy.smarthealthcareservice.json.Result;
 import com.sevenrecy.smarthealthcareservice.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +36,7 @@ public class UserController {
         User user = userService.selectSysUserByTel(tel);
         if (user!=null) {
             if (user.getPwd().equals(pwd)) {
-                return Result.ok().data("loginUser", setAge(user));
+                return Result.ok().data("loginUser", getOutUser(setAge(user)));
             } else {
                 return Result.setResult(LOGIN_PASSWORD_ERROR);
             }
@@ -95,7 +96,7 @@ public class UserController {
                 int i = userService.updateSysUserPwd(user_id, user.getTel(), user.getPwd());
                 if (i>0) {
                     user = userService.selectSysUserByTel(tel);
-                    return Result.ok().data("user", setAge(user));
+                    return Result.ok().data("user", getOutUser(setAge(user)));
                 }
                 return Result.setResult(DATABASE_ERROR);
             } else {
@@ -107,7 +108,7 @@ public class UserController {
         int i = userService.insertSysUser(user);
         if (i>0) {
             user = userService.selectSysUserByTel(tel);
-            return Result.ok().data("registerUser", setAge(user));
+            return Result.ok().data("registerUser", getOutUser(setAge(user)));
         }
         return Result.setResult(DATABASE_ERROR);
     }
@@ -123,19 +124,29 @@ public class UserController {
             int i = userService.updateSysUserPwd(user_id, tel, pwd);
             if (i>0) {
                 user = userService.selectSysUserByTel(tel);
-                return Result.ok().data("user", setAge(user));
+                return Result.ok().data("user", getOutUser(setAge(user)));
             }
             return Result.setResult(DATABASE_ERROR);
         }
         return Result.setResult(USER_NULL_ERROR);
     }
 
-    @RequestMapping("/get_user")
-    public Result getUser(@RequestParam("user_id") int user_id) {
+    @RequestMapping("/get_user_by_id")
+    public Result getUserById(@RequestParam("user_id") int user_id) {
         System.out.println(new Date() + "\t[SmartHealthCareService]\t" +  this.getClass().getName() + ":\t" + new Exception().getStackTrace()[0].getMethodName());
         User user = userService.selectSysUserById(user_id);
         if (user!=null) {
             return Result.ok().data("user", setAge(user));
+        }
+        return Result.setResult(USER_NULL_ERROR);
+    }
+
+    @RequestMapping("/get_user")
+    public Result getUser(@RequestParam("user_IDCard") String IDcard) {
+        System.out.println(new Date() + "\t[SmartHealthCareService]\t" +  this.getClass().getName() + ":\t" + new Exception().getStackTrace()[0].getMethodName());
+        User user = userService.selectSysUserByIDCard(IDcard);
+        if (user!=null) {
+            return Result.ok().data("user", getOutUser(setAge(user)));
         }
         return Result.setResult(USER_NULL_ERROR);
     }
@@ -158,5 +169,20 @@ public class UserController {
         }
         user.setAge(age);
         return user;
+    }
+
+
+    private OutUser getOutUser(User user) {
+        OutUser outUser = new OutUser();
+        outUser.setName(user.getName());
+        outUser.setUser_id(user.getUser_id());
+        outUser.setIDCard(user.getIDCard());
+        outUser.setBirthday(user.getBirthday());
+        outUser.setSex(user.getSex());
+        outUser.setAge(user.getAge());
+        outUser.setTel(user.getTel());
+        outUser.setBalance(user.getBalance());
+        outUser.setCount(user.getCount());
+        return outUser;
     }
 }

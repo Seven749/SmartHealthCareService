@@ -1,6 +1,7 @@
 package com.sevenrecy.smarthealthcareservice.service;
 
 import com.sevenrecy.smarthealthcareservice.entity.Doctor;
+import com.sevenrecy.smarthealthcareservice.entity.out.OutDoctor;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -13,21 +14,21 @@ public interface DoctorService {
      * @param pwd 密码
      * @return
      */
-    Doctor selectDoctor(String doc_id, String pwd);
+    OutDoctor selectDoctor(String doc_id, String pwd);
 
     /**
      * 可以通过医生的id获取医生的基本信息
      * @param doc_id
      * @return
      */
-    Doctor selectDoctorById(@Param("doc_id") String doc_id);
+    OutDoctor selectDoctorById(@Param("doc_id") String doc_id);
 
     /**
      * 通过科室id获取医生列表
      * @param dept_id 科室id
      * @return
      */
-    List<Doctor> selectDoctorByDept(@Param("dept_id") int dept_id);
+    List<OutDoctor> selectDoctorByDept(@Param("dept_id") int dept_id);
 
     /**
      * 通过科室名称，医生姓名查询医生信息
@@ -35,5 +36,5 @@ public interface DoctorService {
      * @param doc_name 医生姓名
      * @return
      */
-    Doctor selectDoctorByDeptAndDoc(@Param("dept_id") int dept_id, @Param("doc_name") String doc_name);
+    OutDoctor selectDoctorByDeptAndDoc(@Param("dept_id") int dept_id, @Param("doc_name") String doc_name);
 }

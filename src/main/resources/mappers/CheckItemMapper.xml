@@ -13,7 +13,7 @@
     </select>
 
     <select id="selectCheckItemList" resultType="CheckItem">
-        SELECT * FROM check_item
+        SELECT * FROM check_item where histories_id=#{histories_id}
     </select>
 
     <select id="selectCheckItem" parameterType="String" resultType="CheckItem">

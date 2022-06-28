@@ -11,6 +11,6 @@
         SELECT * FROM dept WHERE name=#{dept_name}
     </select>
     <select id="selectDeptById" parameterType="int" resultType="Dept">
-        SELECT * FROM dept WHERE detp_id=#{dept_id}
+        SELECT * FROM dept WHERE dept_id=#{dept_iddetp}
     </select>
 </mapper>

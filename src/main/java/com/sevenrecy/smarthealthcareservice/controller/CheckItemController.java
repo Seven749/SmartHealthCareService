@@ -76,11 +76,11 @@ public class CheckItemController {
                 checkItem.setItem_id(item.getItem_id());
                 checkItem.setItem_name(item.getName());
                 checkItem.setItem_count(item_count);
-                SimpleDateFormat fmt1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                SimpleDateFormat fmt1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss:sss");
                 fmt1.setTimeZone(TimeZone.getTimeZone("Asia/Shanghai"));
                 String date = fmt1.format(new Date());
                 checkItem.setCreate_time(date);
-                checkItem.setCheck_item_id("check"+histories_id.substring(3,10)+date.substring(14,16)+date.substring(17));
+                checkItem.setCheck_item_id("check"+histories_id.substring(3,11)+date.substring(14,16)+date.substring(17,19)+date.substring(20)+k);
                 int i = checkItemService.insertCheckItem(checkItem);
                 if (i>0) {
                     checkItem = checkItemService.selectCheckItemById(checkItem.getCheck_item_id());
@@ -205,9 +205,9 @@ public class CheckItemController {
      * @return
      */
     @RequestMapping("/get_check_item_list")
-    public Result getCheckItemList() {
+    public Result getCheckItemList(@RequestParam("user_id") int user_id) {
         System.out.println(new Date() + "\t[SmartHealthCareService]\t" +  this.getClass().getName() + ":\t" + new Exception().getStackTrace()[0].getMethodName());
-        List<CheckItem> checkItemList = checkItemService.selectCheckItemList();
+        List<CheckItem> checkItemList = checkItemService.selectCheckItemListByUserId(user_id);
         if (checkItemList!=null&&checkItemList.size()>0) {
             return Result.ok().data("checkItemList", checkItemList);
         }

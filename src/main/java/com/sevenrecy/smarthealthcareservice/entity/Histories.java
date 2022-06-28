@@ -13,7 +13,8 @@ public class Histories {
     private String doc_name;
     private int dept_id;
     private String dept_name;
-    private String allergies;   // 过敏史
+    private String complaints;  //  主诉
+//    private String allergies;   // 过敏史
     private String present; // 现状史
     private String past;    // 既往史
     private String physical_exam;   // 体格检查

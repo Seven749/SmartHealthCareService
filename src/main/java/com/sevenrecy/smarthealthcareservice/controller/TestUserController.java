@@ -97,7 +97,7 @@ public class TestUserController {
         user.setIDCard(IDCard);
         user.setTel(tel);
         String birth = ""+IDCard.substring(6,10)+"-"+IDCard.substring(10,12)+"-"+IDCard.substring(12,14);
-        SimpleDateFormat fmt1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat fmt1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss:sss");
         fmt1.setTimeZone(TimeZone.getTimeZone("Asia/Shanghai"));
         user.setBirthday(birth);
         user.setCreate_time(fmt1.format(new Date()));
@@ -124,7 +124,7 @@ public class TestUserController {
         user.setIDCard(IDCard);
         user.setTel(tel);
         String birth = ""+IDCard.substring(6,10)+"-"+IDCard.substring(10,12)+"-"+IDCard.substring(12,14);
-        SimpleDateFormat fmt1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat fmt1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss:sss");
         fmt1.setTimeZone(TimeZone.getTimeZone("Asia/Shanghai"));
         user.setBirthday(birth);
         user.setCreate_time(fmt1.format(new Date()));
@@ -238,7 +238,7 @@ public class TestUserController {
         histories.setDoc_id("testId");
         histories.setDoc_name("李四");
         histories.setDept_name("测试科室");
-        histories.setAllergies("无");
+        histories.setComplaints("测试主述");
         histories.setPresent("喉咙痛");
         histories.setPast("无");
         histories.setPhysical_exam("咽喉发炎");
@@ -290,7 +290,7 @@ public class TestUserController {
         histories.setDoc_id("testId");
         histories.setDoc_name("李四");
         histories.setDept_name("测试科室");
-        histories.setAllergies("无");
+        histories.setComplaints("无");
         histories.setPresent("喉咙痛");
         histories.setPast("无");
         histories.setPhysical_exam("咽喉发炎");

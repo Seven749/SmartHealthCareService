@@ -3,19 +3,19 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.sevenrecy.smarthealthcareservice.dao.DoctorDao">
-    <select id="selectDoctor" parameterType="String" resultType="Doctor">
+    <select id="selectDoctor" parameterType="String" resultType="OutDoctor">
         SELECT * FROM doctor WHERE doc_id=#{doc_id} AND pwd=#{pwd}
     </select>
 
-    <select id="selectDoctorById" parameterType="String" resultType="Doctor">
+    <select id="selectDoctorById" parameterType="String" resultType="OutDoctor">
         SELECT * FROM doctor WHERE doc_id=#{doc_id}
     </select>
 
-    <select id="selectDoctorByDept" parameterType="int" resultType="Doctor">
+    <select id="selectDoctorByDept" parameterType="int" resultType="OutDoctor">
         SELECT * FROM doctor WHERE dept_id=#{dept_id} ORDER BY doc_id
     </select>
 
-    <select id="selectDoctorByDeptAndDoc" resultType="Doctor">
+    <select id="selectDoctorByDeptAndDoc" resultType="OutDoctor">
         SELECT * FROM doctor WHERE name=#{doc_name} AND dept_id=#{dept_id}
     </select>
 </mapper>
