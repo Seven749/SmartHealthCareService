@@ -19,4 +19,5 @@ public class Registration {
     private String create_time;
     private String confirm;
     private String skip;
+    private int count;
 }

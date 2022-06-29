@@ -12,8 +12,8 @@
     </select>
 
     <insert id="insertRegistration" parameterType="Registration">
-        INSERT INTO registration(record_id, user_id, user_name, user_IDCard, doc_id, doc_name, dept_id, dept_name, num, price, date, time, create_time)
-        VALUES (#{record_id}, #{user_id}, #{user_name}, #{user_IDCard},#{doc_id}, #{doc_name}, #{dept_id}, #{dept_name}, #{num}, #{price}, #{date}, #{time}, #{create_time})
+        INSERT INTO registration(record_id, user_id, user_name, count, user_IDCard, doc_id, doc_name, dept_id, dept_name, num, price, date, time, create_time)
+        VALUES (#{record_id}, #{user_id}, #{user_name}, #{count}, #{user_IDCard},#{doc_id}, #{doc_name}, #{dept_id}, #{dept_name}, #{num}, #{price}, #{date}, #{time}, #{create_time})
     </insert>
     
     <select id="selectNumByTime" parameterType="String" resultType="int">

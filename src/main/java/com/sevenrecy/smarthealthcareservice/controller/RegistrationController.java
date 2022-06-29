@@ -110,6 +110,7 @@ public class RegistrationController {
         registration.setUser_id(user.getUser_id());
         registration.setUser_name(user.getName());
         registration.setUser_IDCard(user.getIDCard());
+        registration.setCount(user.getCount()+1);
         registration.setDoc_id(doctor.getDoc_id());
         registration.setDoc_name(doctor.getName());
         registration.setDept_id(dept.getDept_id());

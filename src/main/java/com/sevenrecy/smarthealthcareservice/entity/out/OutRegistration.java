@@ -11,4 +11,5 @@ public class OutRegistration {
     private int num;
     private String confirm;
     private String skip;
+    private int count;
 }
