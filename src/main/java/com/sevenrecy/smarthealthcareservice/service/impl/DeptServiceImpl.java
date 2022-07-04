@@ -14,8 +14,8 @@ public class DeptServiceImpl implements DeptService {
     DeptDao deptDao;
 
     @Override
-    public List<Dept> selectDeptList() {
-        return deptDao.selectDeptList();
+    public List<Dept> selectDeptList(int type) {
+        return deptDao.selectDeptList(type);
     }
 
     @Override

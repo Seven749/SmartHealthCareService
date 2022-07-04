@@ -57,6 +57,28 @@ public class RegistrationController {
                                      @RequestParam("date") String date,
                                      @RequestParam("time") String time) {
         System.out.println(new Date() + "\t[SmartHealthCareService]\t" +  this.getClass().getName() + ":\t" + new Exception().getStackTrace()[0].getMethodName());
+        SimpleDateFormat fmt1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss:sss");
+        fmt1.setTimeZone(TimeZone.getTimeZone("Asia/Shanghai"));
+        String nowDateTime = fmt1.format(new Date());
+        if (Integer.parseInt(date.substring(0,4)) < Integer.parseInt(nowDateTime.substring(0,4))) {
+            return Result.setResult(REGISTRATION_DT_ERROR);
+        } else if (Integer.parseInt(date.substring(0,4)) == Integer.parseInt(nowDateTime.substring(0,4))) {
+            if (Integer.parseInt(date.substring(5,7)) < Integer.parseInt(nowDateTime.substring(5,7))) {
+                return Result.setResult(REGISTRATION_DT_ERROR);
+            } else if (Integer.parseInt(date.substring(5,7)) == Integer.parseInt(nowDateTime.substring(5,7))){
+                if (Integer.parseInt(date.substring(8,10)) < Integer.parseInt(nowDateTime.substring(8,10))) {
+                    return Result.setResult(REGISTRATION_DT_ERROR);
+                } else if (Integer.parseInt(date.substring(8,10)) == Integer.parseInt(nowDateTime.substring(8,10))) {
+                    if (Integer.parseInt(time.substring(0,2)) < Integer.parseInt(nowDateTime.substring(11,13))) {
+                        return Result.setResult(REGISTRATION_DT_ERROR);
+                    } else if (Integer.parseInt(time.substring(0,2)) == Integer.parseInt(nowDateTime.substring(11,13))) {
+                        if (Integer.parseInt(time.substring(3,5)) < Integer.parseInt(nowDateTime.substring(14,16))) {
+                            return Result.setResult(REGISTRATION_DT_ERROR);
+                        }
+                    }
+                }
+            }
+        }
         User user = userService.selectSysUserByIDCard(IDCard);
         if (user==null) {
             // 无用户，创建用户
@@ -64,8 +86,8 @@ public class RegistrationController {
             user.setName(user_name);
             user.setIDCard(IDCard);
             String birth = ""+IDCard.substring(6,10)+"-"+IDCard.substring(10,12)+"-"+IDCard.substring(12,14);
-            SimpleDateFormat fmt1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            fmt1.setTimeZone(TimeZone.getTimeZone("Asia/Shanghai"));
+            SimpleDateFormat fmt2 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            fmt2.setTimeZone(TimeZone.getTimeZone("Asia/Shanghai"));
             user.setBirthday(birth);
             user.setCreate_time(fmt1.format(new Date()));
             String sexNum = IDCard.substring(16,17);
@@ -120,8 +142,7 @@ public class RegistrationController {
         registration.setTime(time);
         registration.setRecord_id(doc_id+date.substring(0,4)+date.substring(5,7)+date.substring(8,10)+num);
         registration.setPrice(doctor.getPrice());
-        SimpleDateFormat fmt1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss:sss");
-        fmt1.setTimeZone(TimeZone.getTimeZone("Asia/Shanghai"));
+
         registration.setCreate_time(fmt1.format(new Date()));
         int i = registrationService.insertRegistration(registration);
         if (i>0) {
@@ -168,10 +189,9 @@ public class RegistrationController {
 
     @RequestMapping("/get_registration_of_doctor")
     public Result getRegistrationOfDoctor(@RequestParam("doc_id") String doc_id) {
-//        SimpleDateFormat fmt1 = new SimpleDateFormat("yyyy-MM-dd");
-//        fmt1.setTimeZone(TimeZone.getTimeZone("Asia/Shanghai"));
-//        String date = fmt1.format(new Date());
-        String date = "2022-06-09";
+        SimpleDateFormat fmt1 = new SimpleDateFormat("yyyy-MM-dd");
+        fmt1.setTimeZone(TimeZone.getTimeZone("Asia/Shanghai"));
+        String date = fmt1.format(new Date());
         List<OutRegistration> outRegistrationList = registrationService.selectRegistrationOfDoctor(doc_id, date);
         if (outRegistrationList!=null&&outRegistrationList.size()>0) {
             return Result.ok().data("RegistrationList", outRegistrationList);

@@ -57,6 +57,7 @@ public enum ResultCodeEnum {
     SMS_SEND_ERROR_BUSINESS_LIMIT_CONTROL(false, 28007, "短信发送过于频繁"),
     DATABASE_ERROR(false, 28101, "数据库异常"),
 
+    REGISTRATION_DT_ERROR(false, 28200, "时间已过期"),
     DEPT_NULL_ERROR(false, 28201, "科室不存在"),
     DOCTOR_NULL_ERROR(false,28202, "医生不存在"),
     REGISTRATION_TIME_ERROR(false, 28203, "时间已占用"),

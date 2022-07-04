@@ -61,7 +61,7 @@ public class ItemController {
      * @param item_id 项目id
      * @return
      */
-    @RequestMapping("get_item")
+    @RequestMapping("/get_item")
     public Result getItem(@RequestParam("item_id") String item_id) {
         System.out.println(new Date() + "\t[SmartHealthCareService]\t" +  this.getClass().getName() + ":\t" + new Exception().getStackTrace()[0].getMethodName());
         Item item = itemService.selectItemById(item_id);

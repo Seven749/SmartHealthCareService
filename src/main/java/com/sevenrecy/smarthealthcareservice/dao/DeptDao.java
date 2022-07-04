@@ -9,7 +9,7 @@ public interface DeptDao {
      * 获取科室列表
      * @return
      */
-    List<Dept> selectDeptList();
+    List<Dept> selectDeptList(int type);
 
     /**
      * 获取对应id的科室信息

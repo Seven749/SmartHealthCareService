@@ -23,10 +23,20 @@ public class DeptController {
     @Autowired
     DeptService deptService;
 
-    @RequestMapping("/get_dept_list")
-    public Result getDeptList() {
+    @RequestMapping("/get_dept_list_reg")
+    public Result getDeptListReg() {
         System.out.println(new Date() + "\t[SmartHealthCareService]\t" +  this.getClass().getName() + ":\t" + new Exception().getStackTrace()[0].getMethodName());
-        List<Dept> deptList = deptService.selectDeptList();
+        List<Dept> deptList = deptService.selectDeptList(0);
+        if (deptList!=null&&deptList.size()>0) {
+            return Result.ok().data("deptList", deptList);
+        }
+        return Result.setResult(DATABASE_ERROR);
+    }
+
+    @RequestMapping("/get_dept_list_item")
+    public Result getDeptListItem() {
+        System.out.println(new Date() + "\t[SmartHealthCareService]\t" +  this.getClass().getName() + ":\t" + new Exception().getStackTrace()[0].getMethodName());
+        List<Dept> deptList = deptService.selectDeptList(1);
         if (deptList!=null&&deptList.size()>0) {
             return Result.ok().data("deptList", deptList);
         }
