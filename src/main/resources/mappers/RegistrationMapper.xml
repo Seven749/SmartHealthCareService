@@ -21,7 +21,7 @@
     </select>
 
     <select id="selectRegistrationOfDoctor" resultType="OutRegistration">
-        SELECT user_name, user_IDCard, date, time,  num, confirm, skip FROM registration WHERE doc_id=#{doc_id} AND date=#{date} AND confirm='No' ORDER BY num;
+        SELECT user_id, user_name, user_IDCard, date, time,  num, confirm, skip FROM registration WHERE doc_id=#{doc_id} AND date=#{date} AND confirm='No' ORDER BY num;
     </select>
     
     <update id="updateSkipNum">

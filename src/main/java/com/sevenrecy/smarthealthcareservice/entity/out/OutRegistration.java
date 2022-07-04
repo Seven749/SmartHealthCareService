@@ -4,6 +4,7 @@ import lombok.Data;
 
 @Data
 public class OutRegistration {
+    private int user_id;
     private String user_name;
     private String user_IDCard;
     private String date;

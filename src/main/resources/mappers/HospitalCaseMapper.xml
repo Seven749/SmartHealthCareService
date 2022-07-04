@@ -1,0 +1,8 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sevenrecy.smarthealthcareservice.dao.HospitalCaseDao">
+    <select id="selectHospitalCaseList" resultType="HospitalCase">
+        SELECT * FROM hospitalizedcases WHERE user_id=#{user_id} ORDER BY create_time
+    </select>
+</mapper>
