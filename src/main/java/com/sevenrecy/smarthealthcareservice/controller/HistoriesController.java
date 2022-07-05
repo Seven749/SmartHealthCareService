@@ -55,6 +55,7 @@ public class HistoriesController {
      */
     @RequestMapping("/create_histories")
     public Result createHistories(@RequestParam("user_id") int user_id,
+                                  @RequestParam("count") int count,
                                   @RequestParam("doc_id") String doc_id,
                                   @RequestParam("dept_id") int dept_id,
                                   @RequestParam("complaints") String complaints,
@@ -85,7 +86,7 @@ public class HistoriesController {
         Histories histories = new Histories();
         histories.setUser_id(user.getUser_id());
         histories.setUser_name(user.getName());
-        histories.setCount(user.getCount());
+        histories.setCount(count);
         histories.setDoc_id(doctor.getDoc_id());
         histories.setDoc_name(doctor.getName());
         histories.setDept_id(dept.getDept_id());
